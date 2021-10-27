@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../PlantillaGrupo4.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <br/>
+                    <h1>Tipos de clientes</h1><br/>
+                    <p:commandButton value="Nuevo" />
+                    <br/><p:dataTable var="tipo" value="#{tipoForm.tipoList}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID tipo" />
+                            </f:facet>
+                            <h:outputText value="#{tipo.tipoId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre" />
+                            </f:facet>
+                            <h:outputText value="#{tipo.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Activo" />
+                            </f:facet>
+                            <h:outputText value="#{tipo.activo}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog id="dialogo" widgetVar="wdialog">
+                <h:form>
+                    
+                </h:form>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
