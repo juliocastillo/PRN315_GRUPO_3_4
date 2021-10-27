@@ -43,5 +43,4 @@ public class TipoForm {
     public void setTipoList(List<Tipo> tipoList) {
         this.tipoList = tipoList;
     }
-
 }
