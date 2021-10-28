@@ -5,11 +5,12 @@
  */
 package proyecto.forms;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
 import proyecto.ejb.TipoFacadeLocal;
 import proyecto.entidades.Tipo;
 
@@ -18,12 +19,13 @@ import proyecto.entidades.Tipo;
  * @author Dell
  */
 @Named(value = "tipoForm")
-@Dependent
-public class TipoForm {
+@SessionScoped
+public class TipoForm implements Serializable{
 
     @EJB
     private TipoFacadeLocal tipoFacade;
     private List<Tipo> tipoList;
+    private Tipo tipo;
 
     @PostConstruct
     public void init() {
@@ -31,6 +33,13 @@ public class TipoForm {
             tipoList = tipoFacade.findAll();
         } catch (Exception e) {
         }
+    }
+    public void actualizar(){
+        tipoFacade.edit(tipo);
+    }
+    public void leerTipo(Tipo tipo){
+        this.tipo = tipo;
+        System.out.println(this.tipo.getNombre());
     }
 
     public TipoForm() {
@@ -43,4 +52,13 @@ public class TipoForm {
     public void setTipoList(List<Tipo> tipoList) {
         this.tipoList = tipoList;
     }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+    
 }
