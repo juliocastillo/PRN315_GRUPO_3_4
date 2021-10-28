@@ -13,6 +13,7 @@
                 <h:form id="formTabla">
                     <br/>
                     <h1>Tipos de clientes</h1><br/>
+                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevo').show();" />
                     <br/><p:dataTable id="tablaTipo" var="tipo" value="#{tipoForm.tipoList}">
                         <p:column>
                             <f:facet name="header">
@@ -44,19 +45,47 @@
                             </f:facet>
                             <p:commandButton value="Modificar" actionListener="#{tipoForm.leerTipo(tipo)}" oncomplete="PF('dlgTipo').show();" update="actualizar" />
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Eliminar" />
+                            </f:facet>
+                            <p:commandButton value="Eliminar" actionListener="#{tipoForm.leerTipo(tipo)}" oncomplete="PF('dlgConfimacion').show();" update="confirmacion" />
+
+                        </p:column>
                     </p:dataTable>
                 </h:form>
                 <h:form id="actualizar">
                     <p:dialog id="idTipo" header="Tabla Tipos" widgetVar="dlgTipo">
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText id="textNombre" value="#{tipoForm.tipo.nombre}"/>
+                            <p:inputText id="textNombre" value="#{tipoForm.tipo.nombre}" required="true" />
                             <p:outputLabel value="Activo"/>
-                            <p:inputText value="#{tipoForm.tipo.activo}"/>
+                            <p:inputText value="#{tipoForm.tipo.activo}" required="true" />
                             <p:outputLabel value="Fecha de Creacion"/>
-                            <p:calendar id="popup" value="#{tipoForm.tipo.fechaCreacion}"/>
+                            <p:calendar id="popup" value="#{tipoForm.tipo.fechaCreacion}" required="true"/>
                             <p:commandButton value="Guardar cambios" actionListener="#{tipoForm.actualizar()}" oncomplete="PF('dlgTipo').hide();" update="formTabla:tablaTipo"/>
                         </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="idNuevo">
+                    <p:dialog id="dialogoNuevo" widgetVar="dlgNuevo">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{tipoForm.tipoNuevo.nombre}" required="true" />
+                            <p:outputLabel value="Activo"/>
+                            <p:inputText value="#{tipoForm.tipoNuevo.activo}" required="true" />
+                            <p:outputLabel value="Fecha de Creacion"/>
+                            <p:calendar id="popup" value="#{tipoForm.tipoNuevo.fechaCreacion}" required="true" />
+                            <p:commandButton value="Guardar" actionListener="#{tipoForm.guardar()}" oncomplete="PF('dlgNuevo').hide();" update="formTabla:tablaTipo"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="confirmacion">
+                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" >
+                        <p:outputLabel value="Esta seguro que decea eliminar el registro :"/>
+                        <p:outputLabel value="#{tipoForm.tipo.tipoId}"/><br/>
+                        <p:commandButton value="Aceptar" actionListener="#{tipoForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formTabla" />
+                        <p:commandButton value="Cancelar" oncomplete="PF('dlgConfimacion').hide();" />
                     </p:dialog>
                 </h:form>
             </ui:define>
