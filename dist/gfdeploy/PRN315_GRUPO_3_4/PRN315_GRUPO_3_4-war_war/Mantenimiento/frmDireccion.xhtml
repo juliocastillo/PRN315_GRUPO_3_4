@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../PlantillaGrupo4.xhtml">
+
+            <ui:define name="content">
+                <h:form id="formDireccion">
+                    <h1>Mantenimiento Direccion</h1>
+                    <p:dataTable id="tblDireccion" var="direccion" value="#{direccionForm.direccionList}" rows="10"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID Direccion" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.direccionId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ciudad" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.ciudadId.ciudad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Direccion 1" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.direccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Direccion 2" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.direccion2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Codigo Postal" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.codigoPostal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de Creacion" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.fechaCreacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actualizar" />
+                            </f:facet>
+                            <p:commandButton value="Modificar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgDireccion').show();" update="actualizar" />
+                        </p:column>
+
+
+                    </p:dataTable>
+                </h:form>
+                <h:form id="actualizar">
+                    <p:dialog id="idDireccion" header="Tabla Direccion" widgetVar="dlgDireccion">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="ID Direccion"/>
+                            <p:inputText value="#{direccionForm.direccion.direccionId}" id="textNombre"  required="true" />
+                            
+                            <p:outputLabel value="Ciudad"/>
+                            <p:selectOneMenu id="idCiudad" value="#{direccionForm.direccion.ciudadId}" >
+                                <f:selectItem itemLabel="#{direccionForm.direccion.ciudadId.ciudad}" itemValue="#{direccionForm.direccion.ciudadId}" /> 
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="Direccion 1"/>
+                            <p:inputText required="true" value="#{direccionForm.direccion.direccion}" />
+                            <p:outputLabel value="Direccion 2"/>
+                            <p:inputText required="true" value="#{direccionForm.direccion.direccion2}" />
+                            <p:outputLabel value="Codigo Postal"/>
+                            <p:inputText required="true" value="#{direccionForm.direccion.codigoPostal}" />
+                            <p:outputLabel value="Fecha de Creacion" />
+                            <p:calendar id="popup" value="#{direccionForm.direccion.fechaCreacion}" required="true"/>
+                            <p:commandButton value="Guardar cambios" oncomplete="PF('dlgDireccion').hide();" update="formDireccion:tblDireccion"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

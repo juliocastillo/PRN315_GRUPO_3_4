@@ -14,7 +14,11 @@
                     <br/>
                     <h1>Tipos de clientes</h1><br/>
                     <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevo').show();" />
-                    <br/><p:dataTable id="tablaTipo" var="tipo" value="#{tipoForm.tipoList}">
+                    <br/><p:dataTable id="tablaTipo" var="tipo" value="#{tipoForm.tipoList}" rows="10"
+                     paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                     rowsPerPageTemplate="5,10,{ShowAll|'All'}">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="ID tipo" />
