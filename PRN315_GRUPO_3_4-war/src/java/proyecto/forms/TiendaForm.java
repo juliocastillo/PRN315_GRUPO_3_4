@@ -38,6 +38,7 @@ public class TiendaForm implements Serializable {
     private Direccion direccion;
     
     private Tienda tiendaNueva;
+    private Tienda tienda;
     
     @PostConstruct
     public void init(){
@@ -56,11 +57,30 @@ public class TiendaForm implements Serializable {
         tiendaNueva.setDireccionId(direccion);
         tiendaFacade.create(tiendaNueva);
         cargar();
+        limpiar();
+    }
+    public void leerRow(Tienda tienda){
+        this.tienda = tienda;
+    }
+    public void update(){
+        tienda.setDireccionId(direccion);
+        tiendaFacade.edit(tienda);
+        cargar();
+        limpiar();
+    }
+    public void limpiar(){
+        direccion = null;
+        direccion = new Direccion();
+        tiendaNueva = null;
+        tiendaNueva = new Tienda();
+        tienda = null;
+        tienda = new Tienda();
     }
 
     public TiendaForm() {
         direccion = new Direccion();
         tiendaNueva = new Tienda();
+        tienda = new Tienda();
     }
 
     public List<Direccion> getDireccionList() {
@@ -93,6 +113,14 @@ public class TiendaForm implements Serializable {
 
     public void setTiendaNueva(Tienda tiendaNueva) {
         this.tiendaNueva = tiendaNueva;
+    }
+
+    public Tienda getTienda() {
+        return tienda;
+    }
+
+    public void setTienda(Tienda tienda) {
+        this.tienda = tienda;
     }
     
 }

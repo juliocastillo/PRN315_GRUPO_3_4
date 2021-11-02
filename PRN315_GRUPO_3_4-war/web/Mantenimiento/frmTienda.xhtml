@@ -54,11 +54,11 @@
                             <f:facet name="header">
                                 <h:outputText value="Actualizar" />
                             </f:facet>
-                            <p:commandButton value="Modificar"/>
+                            <p:commandButton value="Modificar" actionListener="#{tiendaForm.leerRow(tienda)}" oncomplete="PF('dlgActualizarTienda').show();" update="idActualizarTienda" />
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Actualizar" />
+                                <h:outputText value="Eliminar"  />
                             </f:facet>
                             <p:commandButton value="Eliminar" />
                         </p:column>
@@ -80,6 +80,27 @@
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{tiendaForm.tiendaNueva.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{tiendaForm.guardar()}" oncomplete="PF('dlgNuevaTienda').hide();" update="formTienda"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                
+                
+                <h:form id="idActualizarTienda">
+                    <p:dialog widgetVar="dlgActualizarTienda" header="Modificar Tienda">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Pais"/>
+                            <p:selectOneMenu value="#{tiendaForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
+                                <f:selectItems value="#{tiendaForm.direccionList}" var="direccion" 
+                                               itemLabel="#{direccion.ciudadId.paisId.pais}, #{direccion.ciudadId.ciudad}, 
+                                               #{direccion.direccion}" itemValue="#{direccion.direccionId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{tiendaForm.tienda.nombre}"/>
+                            <p:outputLabel value="Telefono"/>
+                            <p:inputText value="#{tiendaForm.tienda.telefono}"/>
+                            <p:outputLabel value="Fecha de Creacion"/>
+                            <p:datePicker  id="popup" value="#{tiendaForm.tienda.fechaCreacion}" showTime="true" />
+                            <p:commandButton value="Guardar" actionListener="#{tiendaForm.update()}" oncomplete="PF('dlgActualizarTienda').hide();" update="formTienda"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
