@@ -82,6 +82,11 @@ public class TiendaForm implements Serializable {
         tiendaNueva = new Tienda();
         tienda = new Tienda();
     }
+    public void eliminar(){
+        tiendaFacade.remove(tienda);
+        cargar();
+        limpiar();
+    }
 
     public List<Direccion> getDireccionList() {
         return direccionList;

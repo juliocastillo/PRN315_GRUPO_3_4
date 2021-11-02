@@ -60,7 +60,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Eliminar"  />
                             </f:facet>
-                            <p:commandButton value="Eliminar" />
+                            <p:commandButton value="Eliminar" actionListener="#{tiendaForm.leerRow(tienda)}" oncomplete="PF('dlgConfimacion').show();" update="confirmacion"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
@@ -76,7 +76,7 @@
                             <p:outputLabel value="Nombre"/>
                             <p:inputText value="#{tiendaForm.tiendaNueva.nombre}"/>
                             <p:outputLabel value="Telefono"/>
-                            <p:inputText value="#{tiendaForm.tiendaNueva.telefono}"/>
+                            <p:inputMask value="#{tiendaForm.tiendaNueva.telefono}" mask="99999999" />
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{tiendaForm.tiendaNueva.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{tiendaForm.guardar()}" oncomplete="PF('dlgNuevaTienda').hide();" update="formTienda"/>
@@ -97,11 +97,19 @@
                             <p:outputLabel value="Nombre"/>
                             <p:inputText value="#{tiendaForm.tienda.nombre}"/>
                             <p:outputLabel value="Telefono"/>
-                            <p:inputText value="#{tiendaForm.tienda.telefono}"/>
+                            <p:inputMask value="#{tiendaForm.tienda.telefono}" mask="99999999" />
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{tiendaForm.tienda.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{tiendaForm.update()}" oncomplete="PF('dlgActualizarTienda').hide();" update="formTienda"/>
                         </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="confirmacion">
+                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" >
+                        <p:outputLabel value="Esta seguro que decea eliminar el registro con ID #:"/>
+                        <p:outputLabel value="#{tiendaForm.tienda.tiendaId}"/><br/>
+                        <p:commandButton value="Aceptar" actionListener="#{tiendaForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formTienda" />
+                        <p:commandButton value="Cancelar" oncomplete="PF('dlgConfimacion').hide();" />
                     </p:dialog>
                 </h:form>
             </ui:define>
