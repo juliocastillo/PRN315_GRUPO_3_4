@@ -79,13 +79,20 @@ public class DireccionForm implements Serializable {
     }
 
     public void update() {
+        direccion.setCiudadId(ciudad);
+        direccion.getCiudadId().setPaisId(pais);
         direccionFacade.edit(direccion);
         cargar();
+        limpiar();
     }
 
     public void limpiar() {
         direccionNuevo = null;
         direccionNuevo = new Direccion();
+        direccion = null;
+        direccion = new Direccion();
+        ciudad = new Ciudad();
+        pais = new Pais();
     }
 
     

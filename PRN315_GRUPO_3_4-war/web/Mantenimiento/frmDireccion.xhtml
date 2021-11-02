@@ -65,7 +65,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Actualizar" />
                             </f:facet>
-                            <p:commandButton value="Modificar" />
+                            <p:commandButton value="Modificar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgActualizarDireccion').show();" update="idActualizarDireccion"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
@@ -90,6 +90,31 @@
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{direccionForm.direccionNuevo.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{direccionForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formDireccion"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="idActualizarDireccion">
+                    <p:dialog widgetVar="dlgActualizarDireccion" header="Actualizar Direccion">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Pais"/>
+                            <p:selectOneMenu value="#{direccionForm.pais.paisId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{direccionForm.direccion.ciudadId.paisId.paisId},#{direccionForm.direccion.ciudadId.paisId.pais}" itemValue="#{direccionForm.direccion.ciudadId.paisId.paisId}"/>
+                                <f:selectItems value="#{direccionForm.paisList}" var="pais" itemLabel="#{pais.paisId}.#{pais.pais}" itemValue="#{pais.paisId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Ciudad"/>
+                            <p:selectOneMenu value="#{direccionForm.ciudad.ciudadId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{direccionForm.direccion.ciudadId.ciudadId},#{direccionForm.direccion.ciudadId.ciudad}" itemValue="#{direccionForm.direccion.ciudadId.ciudadId}"/>
+                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudadId}.#{ciudad.ciudad}" itemValue="#{ciudad.ciudadId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Direccion 1"/>
+                            <p:inputText value="#{direccionForm.direccion.direccion}"/>
+                            <p:outputLabel value="Direccion 2"/>
+                            <p:inputText value="#{direccionForm.direccion.direccion2}"/>
+                            <p:outputLabel value="Codigo Postal"/>
+                            <p:inputText value="#{direccionForm.direccion.codigoPostal}"/>
+                            <p:outputLabel value="Fecha de Creacion"/>
+                            <p:datePicker  id="popup" value="#{direccionForm.direccion.fechaCreacion}" showTime="true" />
+                            <p:commandButton value="Modificar" actionListener="#{direccionForm.update()}" oncomplete="PF('dlgActualizarDireccion').hide();" update="formDireccion"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
