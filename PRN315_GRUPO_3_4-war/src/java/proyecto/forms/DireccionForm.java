@@ -85,6 +85,10 @@ public class DireccionForm implements Serializable {
         cargar();
         limpiar();
     }
+    public void eliminar(){
+        direccionFacade.remove(direccion);
+        cargar();
+    }
 
     public void limpiar() {
         direccionNuevo = null;

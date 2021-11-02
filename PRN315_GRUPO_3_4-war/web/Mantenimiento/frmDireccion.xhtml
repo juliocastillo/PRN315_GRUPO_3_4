@@ -67,6 +67,12 @@
                             </f:facet>
                             <p:commandButton value="Modificar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgActualizarDireccion').show();" update="idActualizarDireccion"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actualizar" />
+                            </f:facet>
+                            <p:commandButton value="Eliminar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgConfimacion').show();" update="confirmacion"/>
+                        </p:column>
                     </p:dataTable>
                 </h:form>
                 
@@ -116,6 +122,14 @@
                             <p:datePicker  id="popup" value="#{direccionForm.direccion.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Modificar" actionListener="#{direccionForm.update()}" oncomplete="PF('dlgActualizarDireccion').hide();" update="formDireccion"/>
                         </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="confirmacion">
+                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" >
+                        <p:outputLabel value="Esta seguro que decea eliminar el registro con ID #:"/>
+                        <p:outputLabel value="#{direccionForm.direccion.direccionId}"/><br/>
+                        <p:commandButton value="Aceptar" actionListener="#{direccionForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formDireccion" />
+                        <p:commandButton value="Cancelar" oncomplete="PF('dlgConfimacion').hide();" />
                     </p:dialog>
                 </h:form>
             </ui:define>
