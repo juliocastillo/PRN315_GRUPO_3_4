@@ -8,13 +8,16 @@ package proyecto.forms;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import proyecto.ejb.CiudadFacadeLocal;
 import proyecto.ejb.DireccionFacadeLocal;
+import proyecto.ejb.PaisFacadeLocal;
 import proyecto.entidades.Ciudad;
 import proyecto.entidades.Direccion;
+import proyecto.entidades.Pais;
 
 /**
  *
@@ -25,24 +28,38 @@ import proyecto.entidades.Direccion;
 public class DireccionForm implements Serializable {
 
     @Inject
+    private PaisFacadeLocal paisFacade;
+
+    @Inject
     private CiudadFacadeLocal ciudadFacade;
 
     @Inject
     private DireccionFacadeLocal direccionFacade;
 
     private List<Direccion> direccionList;
+    private List<Ciudad> ciudadList;
+    private Direccion direccionNuevo;
+    private List<Pais> paisList;
     private Direccion direccion;
-    private List<String> ciudadNombre;
+    private Ciudad ciudad;
+    private Pais pais;
 
     @PostConstruct
     public void init() {
+        direccionNuevo = new Direccion();
+        ciudad = new Ciudad();
+        pais = new Pais();
         cargar();
     }
+    public DireccionForm() {
+    }
 
-    //Metodo utilizado para cargar la tabla
+    //Metodo utilizado para cargar las tablas
     public void cargar() {
         try {
             this.direccionList = direccionFacade.findAll();
+            this.ciudadList = ciudadFacade.findAll();
+            this.paisList = paisFacade.findAll();
         } catch (Exception e) {
 
         }
@@ -50,19 +67,28 @@ public class DireccionForm implements Serializable {
 
     public void leerFila(Direccion direccion) {
         this.direccion = direccion;
-        List<Ciudad> ciudadList;
-        try {
-            ciudadList = ciudadFacade.findAll();
-            for (Ciudad ciudad : ciudadList) {
-                this.ciudadNombre.add(ciudad.getCiudad());
-            }
-        } catch (Exception e) {
-
-        }
     }
 
-    public DireccionForm() {
+    public void guardar() {
+        direccionNuevo.setDireccionId(BigDecimal.valueOf(155D));
+        direccionNuevo.setCiudadId(ciudad);
+        direccionNuevo.getCiudadId().setPaisId(pais);
+        direccionFacade.create(direccionNuevo);
+        cargar();
+        limpiar();
     }
+
+    public void update() {
+        direccionFacade.edit(direccion);
+        cargar();
+    }
+
+    public void limpiar() {
+        direccionNuevo = null;
+        direccionNuevo = new Direccion();
+    }
+
+    
 
     public List<Direccion> getDireccionList() {
         return direccionList;
@@ -80,12 +106,44 @@ public class DireccionForm implements Serializable {
         this.direccion = direccion;
     }
 
-    public List<String> getCiudadNombre() {
-        return ciudadNombre;
+    public List<Ciudad> getCiudadList() {
+        return ciudadList;
     }
 
-    public void setCiudadNombre(List<String> ciudadNombre) {
-        this.ciudadNombre = ciudadNombre;
+    public void setCiudadList(List<Ciudad> ciudadList) {
+        this.ciudadList = ciudadList;
+    }
+
+    public Direccion getDireccionNuevo() {
+        return direccionNuevo;
+    }
+
+    public void setDireccionNuevo(Direccion direccionNuevo) {
+        this.direccionNuevo = direccionNuevo;
+    }
+
+    public List<Pais> getPaisList() {
+        return paisList;
+    }
+
+    public void setPaisList(List<Pais> paisList) {
+        this.paisList = paisList;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public Ciudad getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
     }
 
 }

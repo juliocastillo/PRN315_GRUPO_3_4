@@ -12,17 +12,24 @@
 
             <ui:define name="content">
                 <h:form id="formDireccion">
+                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaDireccion').show();" />
                     <h1>Mantenimiento Direccion</h1>
-                    <p:dataTable id="tblDireccion" var="direccion" value="#{direccionForm.direccionList}" rows="10"
-                     paginator="true"
-                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                     currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
-                     rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                    <p:dataTable id="tblDireccion" var="direccion" value="#{direccionForm.direccionList}" rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 rowsPerPageTemplate="5,10,{ShowAll|'All'}">
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="ID Direccion" />
                             </f:facet>
                             <h:outputText value="#{direccion.direccionId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Pais" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.ciudadId.paisId.pais}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -58,32 +65,31 @@
                             <f:facet name="header">
                                 <h:outputText value="Actualizar" />
                             </f:facet>
-                            <p:commandButton value="Modificar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgDireccion').show();" update="actualizar" />
+                            <p:commandButton value="Modificar" />
                         </p:column>
-
-
                     </p:dataTable>
                 </h:form>
-                <h:form id="actualizar">
-                    <p:dialog id="idDireccion" header="Tabla Direccion" widgetVar="dlgDireccion">
+                
+                <h:form id="idNuevoDireccion">
+                    <p:dialog widgetVar="dlgNuevaDireccion" header="Nueva Direccion">
                         <h:panelGrid columns="2">
-                            <p:outputLabel value="ID Direccion"/>
-                            <p:inputText value="#{direccionForm.direccion.direccionId}" id="textNombre"  required="true" />
-                            
-                            <p:outputLabel value="Ciudad"/>
-                            <p:selectOneMenu id="idCiudad" value="#{direccionForm.direccion.ciudadId}" >
-                                <f:selectItem itemLabel="#{direccionForm.direccion.ciudadId.ciudad}" itemValue="#{direccionForm.direccion.ciudadId}" /> 
+                            <p:outputLabel value="Pais"/>
+                            <p:selectOneMenu value="#{direccionForm.pais.paisId}" filter="true" filterMatchMode="contains">
+                                <f:selectItems value="#{direccionForm.paisList}" var="pais" itemLabel="#{pais.pais}" itemValue="#{pais.paisId}"/> 
                             </p:selectOneMenu>
-                            
+                            <p:outputLabel value="Ciudad"/>
+                            <p:selectOneMenu value="#{direccionForm.ciudad.ciudadId}" filter="true" filterMatchMode="contains">
+                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}" itemValue="#{ciudad.ciudadId}"/> 
+                            </p:selectOneMenu>
                             <p:outputLabel value="Direccion 1"/>
-                            <p:inputText required="true" value="#{direccionForm.direccion.direccion}" />
+                            <p:inputText value="#{direccionForm.direccionNuevo.direccion}"/>
                             <p:outputLabel value="Direccion 2"/>
-                            <p:inputText required="true" value="#{direccionForm.direccion.direccion2}" />
+                            <p:inputText value="#{direccionForm.direccionNuevo.direccion2}"/>
                             <p:outputLabel value="Codigo Postal"/>
-                            <p:inputText required="true" value="#{direccionForm.direccion.codigoPostal}" />
-                            <p:outputLabel value="Fecha de Creacion" />
-                            <p:calendar id="popup" value="#{direccionForm.direccion.fechaCreacion}" required="true"/>
-                            <p:commandButton value="Guardar cambios" oncomplete="PF('dlgDireccion').hide();" update="formDireccion:tblDireccion"/>
+                            <p:inputText value="#{direccionForm.direccionNuevo.codigoPostal}"/>
+                            <p:outputLabel value="Fecha de Creacion"/>
+                            <p:datePicker  id="popup" value="#{direccionForm.direccionNuevo.fechaCreacion}" showTime="true" />
+                            <p:commandButton value="Guardar" actionListener="#{direccionForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formDireccion"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>

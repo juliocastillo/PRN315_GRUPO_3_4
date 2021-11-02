@@ -14,6 +14,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -50,6 +52,7 @@ public class Direccion implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "direccion_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BigDecimal direccionId;
     @Basic(optional = false)
     @NotNull
