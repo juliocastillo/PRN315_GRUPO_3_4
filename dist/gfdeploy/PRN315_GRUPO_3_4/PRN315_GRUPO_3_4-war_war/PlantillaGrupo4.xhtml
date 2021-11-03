@@ -21,9 +21,9 @@
                         <p:submenu label="Proyecto grupo 4" icon="pi pi-check">
                             <p:column>
                                 <p:submenu label="Mantenimientos">
-                                    <p:menuitem value="Mantenimiento tabla Tipo" action="/Mantenimiento/frmTipo.jsf" />
-                                    <p:menuitem value="Mantenimiento tabla Direcccion" action="/Mantenimiento/frmDireccion.jsf" />
-                                    <p:menuitem value="Mantenimiento tabla Tienda" action="/Mantenimiento/frmTienda.jsf" />
+                                    <p:menuitem value="Mantenimiento tabla Tipo" url="/PRN315_GRUPO_3_4-war/Mantenimiento/frmTipo.jsf" />
+                                    <p:menuitem value="Mantenimiento tabla Direcccion" url="/PRN315_GRUPO_3_4-war/Mantenimiento/frmDireccion.jsf" />
+                                    <p:menuitem value="Mantenimiento tabla Tienda" url="/PRN315_GRUPO_3_4-war/Mantenimiento/frmTienda.jsf" />
                                 </p:submenu>
                             </p:column>
                             <p:column>
@@ -37,6 +37,7 @@
                                 </p:submenu>
                             </p:column>
                         </p:submenu>
+                        <p:menuitem value="Cerrar Session" action="#{controlPlatilla.cerrarSession()}" icon="pi pi-times" />
                     </p:megaMenu>
                 </h:form>
             </ui:insert>

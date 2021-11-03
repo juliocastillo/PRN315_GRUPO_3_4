@@ -23,14 +23,15 @@ public class controlPlatilla implements Serializable {
         try {
             String pass = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("pass");
             if(pass==null){
-                FacesContext.getCurrentInstance().getExternalContext().redirect("./../index.jsf");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/PRN315_GRUPO_3_4-war/index.jsf");
             }
         } catch (Exception e) {
 
         }
     }
-    public void cerrarSession(){
+    public String cerrarSession(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/PRN315_GRUPO_3_4-war/index.jsf";
     }
 
     public controlPlatilla() {

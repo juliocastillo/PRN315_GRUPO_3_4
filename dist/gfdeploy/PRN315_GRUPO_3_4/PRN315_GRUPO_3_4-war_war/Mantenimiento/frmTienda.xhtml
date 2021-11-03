@@ -66,7 +66,7 @@
                     </p:dataTable>
                 </h:form>
                 <h:form id="idNuevoTienda">
-                    <p:dialog widgetVar="dlgNuevaTienda" header="Nueva Tienda">
+                    <p:dialog widgetVar="dlgNuevaTienda" header="Nueva Tienda" modal="true" >
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Pais"/>
                             <p:selectOneMenu value="#{tiendaForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
@@ -88,7 +88,7 @@
                 
                 
                 <h:form id="idActualizarTienda">
-                    <p:dialog widgetVar="dlgActualizarTienda" header="Modificar Tienda">
+                    <p:dialog widgetVar="dlgActualizarTienda" header="Modificar Tienda" modal="true" >
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Pais"/>
                             <p:selectOneMenu value="#{tiendaForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
@@ -108,7 +108,7 @@
                     </p:dialog>
                 </h:form>
                 <h:form id="confirmacion">
-                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" >
+                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" modal="true" >
                         <p:outputLabel value="Esta seguro que decea eliminar el registro con ID #:"/>
                         <p:outputLabel value="#{tiendaForm.tienda.tiendaId}"/><br/>
                         <p:commandButton value="Aceptar" actionListener="#{tiendaForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formTienda" />
