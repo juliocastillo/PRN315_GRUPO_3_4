@@ -18,7 +18,7 @@
             <ui:insert name="top">
                 <h:form id="form">
                     <p:megaMenu orientation="horizontal" autoDisplay="false" style="margintop:20px">
-                        <p:submenu label="Proyecto grupo 4" icon="pi pi-check">
+                        <p:submenu label="Mantenimientos" icon="pi pi-check">
                             <p:column>
                                 <p:submenu label="Mantenimientos">
                                     <p:menuitem value="Mantenimiento tabla Tipo" url="/PRN315_GRUPO_3_4-war/Mantenimiento/frmTipo.jsf" />
@@ -26,8 +26,17 @@
                                     <p:menuitem value="Mantenimiento tabla Tienda" url="/PRN315_GRUPO_3_4-war/Mantenimiento/frmTienda.jsf" />
                                 </p:submenu>
                             </p:column>
+                        </p:submenu>
+                        <p:submenu label="Formularios" icon="pi pi-check" >
                             <p:column>
                                 <p:submenu label="Formularios">
+                                    <p:menuitem value="Clientes" url="/PRN315_GRUPO_3_4-war/Formulario/frmCliente.jsf" />
+                                </p:submenu>
+                            </p:column>
+                        </p:submenu>
+                        <p:submenu label="Reportes" icon="pi pi-check">
+                            <p:column>
+                                <p:submenu label="Reportes">
                                     <p:menuitem value="Clientes listado completo" url="#" />
                                     <p:menuitem value="Clientes listado por Tipo" url="#" />
                                     <p:menuitem value="Clientes listado Por Pais" url="#" />

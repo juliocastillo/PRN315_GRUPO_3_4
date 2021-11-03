@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../PlantillaGrupo4.xhtml">
+
+            <ui:define name="content">
+                <h1>Mantenimiento Direccion</h1>
+                <h:form id="formCliente">
+                    <p:growl id="msg" showDetail="true"/>
+                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaCliente').show();" update="idNuevoCliente" />
+                    <p:dataTable id="tblClientes" value="#{clienteForm.clienteList}" var="cliente" rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 rowsPerPageTemplate="5,10,{ShowAll|'All'}" >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID Cliente" />
+                            </f:facet>
+                            <h:outputText value="#{cliente.clienteId}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Direccion" />
+                            </f:facet>
+                            <h:outputText value="#{cliente.direccionId.ciudadId.paisId.pais} 
+                                          #{cliente.direccionId.ciudadId.ciudad} #{cliente.direccionId.direccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tienda" />
+                            </f:facet>
+                            <h:outputText value="#{cliente.tiendaId.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombres" />
+                            </f:facet>
+                            <h:outputText value="#{cliente.nombres}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Apellidos" />
+                            </f:facet>
+                            <h:outputText value="#{cliente.apellidos}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actitvo" />
+                            </f:facet>
+                            <h:outputText value="#{cliente.activo}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de Creacion" />
+                            </f:facet>
+                            <h:outputText value="#{cliente.fechaCreacion}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actualizar" />
+                            </f:facet>
+                            <p:commandButton value="Modificar" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Eliminar" />
+                            </f:facet>
+                            <p:commandButton value="Eliminar" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form id="idNuevoCliente">
+                    <p:dialog widgetVar="dlgNuevaCliente" header="Nuevo Cliente" modal="true" >
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Direccion"/>
+                            <p:selectOneMenu value="#{clienteForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
+                                <f:selectItems value="#{clienteForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}" itemValue="#{direccion.direccionId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Tienda"/>
+                            <p:selectOneMenu value="#{clienteForm.tienda.tiendaId}" filter="true" filterMatchMode="contains">
+                                <f:selectItems value="#{clienteForm.tiendaList}" var="tienda" itemLabel="#{tienda.nombre}" itemValue="#{tienda.tiendaId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{clienteForm.clienteNuevo.nombres}"/>
+                            <p:outputLabel value="Apellido"/>
+                            <p:inputText value="#{clienteForm.clienteNuevo.apellidos}"/>
+                            <p:outputLabel value="Activo"/>
+                            <p:inputText value="#{clienteForm.clienteNuevo.activo}"/>
+                            <p:outputLabel value="Fecha de Creacion"/>
+                            <p:datePicker  id="popup" value="#{clienteForm.clienteNuevo.fechaCreacion}" showTime="true" />
+                            <p:commandButton value="Guardar" actionListener="#{clienteForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formCliente"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevaDireccion').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

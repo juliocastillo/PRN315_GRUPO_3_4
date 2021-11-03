@@ -11,10 +11,10 @@
         <ui:composition template="./../PlantillaGrupo4.xhtml">
 
             <ui:define name="content">
+                <h1>Mantenimiento Direccion</h1>
                 <h:form id="formDireccion">
                     <p:growl id="msg" showDetail="true"/>
                     <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaDireccion').show();" />
-                    <h1>Mantenimiento Direccion</h1>
                     <p:dataTable id="tblDireccion" var="direccion" value="#{direccionForm.direccionList}" rows="5"
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -70,7 +70,7 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Actualizar" />
+                                <h:outputText value="Eliminar" />
                             </f:facet>
                             <p:commandButton value="Eliminar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgConfimacion').show();" update="confirmacion"/>
                         </p:column>
