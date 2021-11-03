@@ -11,9 +11,10 @@
         <ui:composition template="./../PlantillaGrupo4.xhtml">
             <ui:define name="content">
                 <h:form id="formTabla">
+                    <p:growl id="msg" showDetail="true"/>
                     <br/>
                     <h1>Tipos de clientes</h1><br/>
-                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevo').show();" />
+                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevo').show();" update="idNuevo" />
                     <br/><p:dataTable id="tablaTipo" var="tipo" value="#{tipoForm.tipoList}" rows="5"
                                       paginator="true"
                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -70,8 +71,8 @@
                             </p:selectOneButton>
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{tipoForm.tipoNuevo.fechaCreacion}" showTime="true" required="true" />
-                            <p:commandButton value="Guardar" actionListener="#{tipoForm.guardar()}" oncomplete="PF('dlgNuevo').hide();" update="formTabla"/>
-                            <p:commandButton value="Cancelar" actionListener="#{tipoForm.limpiar()}" oncomplete="PF('dlgNuevo').hide();" update="idNuevo"/>
+                            <p:commandButton value="Guardar" actionListener="#{tipoForm.guardar()}" oncomplete="PF('dlgNuevo').hide();" update="formTabla, idNuevo"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevo').hide();" update="idNuevo"/>
                         </h:panelGrid>
                     </p:dialog>
                     
@@ -88,7 +89,7 @@
                             </p:selectOneButton>
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker id="popup" value="#{tipoForm.tipo.fechaCreacion}" showTime="true" required="true"/>
-                            <p:commandButton value="Guardar cambios" actionListener="#{tipoForm.actualizar()}" oncomplete="PF('dlgTipo').hide();" update="formTabla:tablaTipo"/>
+                            <p:commandButton value="Guardar cambios" oncomplete="PF('dlgTipo').hide();" update="formTabla"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>

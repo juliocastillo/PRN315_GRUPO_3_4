@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import proyecto.ejb.DireccionFacadeLocal;
 import proyecto.ejb.TiendaFacadeLocal;
@@ -30,45 +32,60 @@ public class TiendaForm implements Serializable {
 
     @Inject
     private TiendaFacadeLocal tiendaFacade;
-    
+
     private List<Direccion> direccionList;
-    
+
     private List<Tienda> tiendaList;
-    
+
     private Direccion direccion;
-    
+
     private Tienda tiendaNueva;
     private Tienda tienda;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         cargar();
     }
-    public void cargar(){
-        try{
+
+    public void cargar() {
+        try {
             tiendaList = tiendaFacade.findAll();
             direccionList = direccionFacade.findAll();
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
-    public void guardar(){
+
+    public void guardar() {
         tiendaNueva.setTiendaId(BigDecimal.valueOf(155D));
         tiendaNueva.setDireccionId(direccion);
-        tiendaFacade.create(tiendaNueva);
+        try {
+            tiendaFacade.create(tiendaNueva);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","¡Guardado Exitoso!"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","¡Error al Guardar!"));
+        }
         cargar();
         limpiar();
     }
-    public void leerRow(Tienda tienda){
+
+    public void leerRow(Tienda tienda) {
         this.tienda = tienda;
     }
-    public void update(){
+
+    public void update() {
         tienda.setDireccionId(direccion);
-        tiendaFacade.edit(tienda);
+        try {
+            tiendaFacade.edit(tienda);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "¡Registro modificado!"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","¡Error al Actualizar!"));
+        }
         cargar();
         limpiar();
     }
-    public void limpiar(){
+
+    public void limpiar() {
         direccion = null;
         direccion = new Direccion();
         tiendaNueva = null;
@@ -82,8 +99,14 @@ public class TiendaForm implements Serializable {
         tiendaNueva = new Tienda();
         tienda = new Tienda();
     }
-    public void eliminar(){
+
+    public void eliminar() {
+        try{
         tiendaFacade.remove(tienda);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","¡Eliminado!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","¡Error al Eliminar!"));
+        }
         cargar();
         limpiar();
     }
@@ -127,5 +150,5 @@ public class TiendaForm implements Serializable {
     public void setTienda(Tienda tienda) {
         this.tienda = tienda;
     }
-    
+
 }

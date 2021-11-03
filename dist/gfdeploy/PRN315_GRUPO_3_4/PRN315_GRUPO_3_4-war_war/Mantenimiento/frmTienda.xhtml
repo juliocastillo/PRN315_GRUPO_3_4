@@ -12,6 +12,7 @@
             
             <ui:define name="content">
                 <h:form id="formTienda">
+                    <p:growl id="msg" showDetail="true"/>
                     <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaTienda').show();" />
                     <h1>Mantenimiento Tienda</h1>
                     <p:dataTable id="tblTienda" var="tienda" value="#{tiendaForm.tiendaList}" rows="5"
@@ -79,7 +80,8 @@
                             <p:inputMask value="#{tiendaForm.tiendaNueva.telefono}" mask="99999999" />
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{tiendaForm.tiendaNueva.fechaCreacion}" showTime="true" />
-                            <p:commandButton value="Guardar" actionListener="#{tiendaForm.guardar()}" oncomplete="PF('dlgNuevaTienda').hide();" update="formTienda"/>
+                            <p:commandButton value="Guardar" actionListener="#{tiendaForm.guardar()}" oncomplete="PF('dlgNuevaTienda').hide();" update="formTienda, idNuevoTienda"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevaTienda').hide();" />
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
@@ -100,7 +102,8 @@
                             <p:inputMask value="#{tiendaForm.tienda.telefono}" mask="99999999" />
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{tiendaForm.tienda.fechaCreacion}" showTime="true" />
-                            <p:commandButton value="Guardar" actionListener="#{tiendaForm.update()}" oncomplete="PF('dlgActualizarTienda').hide();" update="formTienda"/>
+                            <p:commandButton value="Guardar" actionListener="#{tiendaForm.update()}" oncomplete="PF('dlgActualizarTienda').hide();" update="formTienda, idActualizarTienda"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarTienda').hide();" />
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>

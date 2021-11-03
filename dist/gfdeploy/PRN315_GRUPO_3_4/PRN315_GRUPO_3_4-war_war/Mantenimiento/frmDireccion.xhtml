@@ -12,6 +12,7 @@
 
             <ui:define name="content">
                 <h:form id="formDireccion">
+                    <p:growl id="msg" showDetail="true"/>
                     <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaDireccion').show();" />
                     <h1>Mantenimiento Direccion</h1>
                     <p:dataTable id="tblDireccion" var="direccion" value="#{direccionForm.direccionList}" rows="5"
@@ -75,7 +76,7 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
+
                 <h:form id="idNuevoDireccion">
                     <p:dialog widgetVar="dlgNuevaDireccion" header="Nueva Direccion">
                         <h:panelGrid columns="2">
@@ -95,7 +96,8 @@
                             <p:inputText value="#{direccionForm.direccionNuevo.codigoPostal}"/>
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{direccionForm.direccionNuevo.fechaCreacion}" showTime="true" />
-                            <p:commandButton value="Guardar" actionListener="#{direccionForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formDireccion"/>
+                            <p:commandButton value="Guardar" actionListener="#{direccionForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formDireccion, idNuevoDireccion"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevaDireccion').hide();" update="idNuevoDireccion"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
@@ -120,7 +122,8 @@
                             <p:inputText value="#{direccionForm.direccion.codigoPostal}"/>
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{direccionForm.direccion.fechaCreacion}" showTime="true" />
-                            <p:commandButton value="Modificar" actionListener="#{direccionForm.update()}" oncomplete="PF('dlgActualizarDireccion').hide();" update="formDireccion"/>
+                            <p:commandButton value="Modificar" actionListener="#{direccionForm.update()}" oncomplete="PF('dlgActualizarDireccion').hide();" update="formDireccion, idActualizarDireccion"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarDireccion').hide();" update="idActualizarDireccion"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>

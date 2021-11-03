@@ -11,6 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import proyecto.ejb.TipoFacadeLocal;
 import proyecto.entidades.Tipo;
@@ -41,7 +43,12 @@ public class TipoForm implements Serializable {
     }
     //Metodo usado para actualizar un registro de la tabla Tipo
     public void actualizar() {
+        try{
         tipoFacade.edit(tipo);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","¡Registro modificado!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","¡Error al Actualizar!"));
+        }
         cargar();
     }
     //metodo recive la fila seleccionada
@@ -51,12 +58,23 @@ public class TipoForm implements Serializable {
     //metodo sirve para guardar un registro en la tabla Tipo
     public void guardar(){
         tipoNuevo.setTipoId(BigDecimal.valueOf(155D));
+        try{
         tipoFacade.create(tipoNuevo);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","¡Guardado Exitoso!"));
+        }catch(Exception e){
+            
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","¡Error al Guardar!"));
+        }
         cargar();
         limpiar();
     }
     public void eliminar(){
+        try{
         tipoFacade.remove(tipo);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","¡Eliminado!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","¡Error al Eliminar!"));
+        }
         cargar();
     }
     public void limpiar(){

@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>Facelets Template</title>
+        <f:event type="preRenderView"  listener="#{controlPlatilla.session()}" />
     </h:head>
 
     <h:body>
@@ -21,9 +21,9 @@
                         <p:submenu label="Proyecto grupo 4" icon="pi pi-check">
                             <p:column>
                                 <p:submenu label="Mantenimientos">
-                                    <p:menuitem value="Mantenimiento tabla Tipo" url="Mantenimiento/frmTipo.xhtml" />
-                                    <p:menuitem value="Mantenimiento tabla Direcccion" url="Mantenimiento/frmDireccion.xhtml" />
-                                    <p:menuitem value="Mantenimiento tabla Tienda" url="#" />
+                                    <p:menuitem value="Mantenimiento tabla Tipo" action="/Mantenimiento/frmTipo.jsf" />
+                                    <p:menuitem value="Mantenimiento tabla Direcccion" action="/Mantenimiento/frmDireccion.jsf" />
+                                    <p:menuitem value="Mantenimiento tabla Tienda" action="/Mantenimiento/frmTienda.jsf" />
                                 </p:submenu>
                             </p:column>
                             <p:column>

@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import proyecto.ejb.CiudadFacadeLocal;
 import proyecto.ejb.DireccionFacadeLocal;
@@ -51,6 +53,7 @@ public class DireccionForm implements Serializable {
         pais = new Pais();
         cargar();
     }
+
     public DireccionForm() {
     }
 
@@ -73,7 +76,12 @@ public class DireccionForm implements Serializable {
         direccionNuevo.setDireccionId(BigDecimal.valueOf(155D));
         direccionNuevo.setCiudadId(ciudad);
         direccionNuevo.getCiudadId().setPaisId(pais);
-        direccionFacade.create(direccionNuevo);
+        try {
+            direccionFacade.create(direccionNuevo);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "¡Guardado Exitoso!"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "¡Error al Guardar!"));
+        }
         cargar();
         limpiar();
     }
@@ -81,13 +89,25 @@ public class DireccionForm implements Serializable {
     public void update() {
         direccion.setCiudadId(ciudad);
         direccion.getCiudadId().setPaisId(pais);
-        direccionFacade.edit(direccion);
+        try {
+            direccionFacade.edit(direccion);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "¡Registro modificado!"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "¡Error al Actualizar!"));
+        }
         cargar();
         limpiar();
     }
-    public void eliminar(){
+
+    public void eliminar() {
+        try{
         direccionFacade.remove(direccion);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","¡Eliminado!"));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Aviso","¡Error al Eliminar!"));
+        }
         cargar();
+        limpiar();
     }
 
     public void limpiar() {
@@ -95,11 +115,11 @@ public class DireccionForm implements Serializable {
         direccionNuevo = new Direccion();
         direccion = null;
         direccion = new Direccion();
+        ciudad = null;
         ciudad = new Ciudad();
+        pais = null;
         pais = new Pais();
     }
-
-    
 
     public List<Direccion> getDireccionList() {
         return direccionList;
