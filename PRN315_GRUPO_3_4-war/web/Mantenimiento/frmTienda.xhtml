@@ -11,6 +11,7 @@
         <ui:composition template="./../PlantillaGrupo4.xhtml">
             
             <ui:define name="content">
+                <f:event type="preRenderView"  listener="#{tiendaForm.cargar()}" />
                 <h:form id="formTienda">
                     <p:growl id="msg" showDetail="true"/>
                     <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaTienda').show();" />

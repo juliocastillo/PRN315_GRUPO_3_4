@@ -9,6 +9,7 @@
     <body>
 
         <ui:composition template="./../PlantillaGrupo4.xhtml">
+            <f:event type="preRenderView"  listener="#{tipoForm.cargar()}" />
             <ui:define name="content">
                 <h:form id="formTabla">
                     <p:growl id="msg" showDetail="true"/>
@@ -75,7 +76,7 @@
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevo').hide();" update="idNuevo"/>
                         </h:panelGrid>
                     </p:dialog>
-                    
+
                 </h:form>
                 <h:form id="actualizar">
                     <p:dialog id="idTipo" header="Tabla Tipos" widgetVar="dlgTipo" modal="true" >

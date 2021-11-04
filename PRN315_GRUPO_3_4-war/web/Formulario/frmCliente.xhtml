@@ -11,7 +11,8 @@
         <ui:composition template="./../PlantillaGrupo4.xhtml">
 
             <ui:define name="content">
-                <h1>Mantenimiento Direccion</h1>
+                <f:event type="preRenderView"  listener="#{clienteForm.cargar()}" />
+                <h1>Formulario Clientes</h1>
                 <h:form id="formCliente">
                     <p:growl id="msg" showDetail="true"/>
                     <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaCliente').show();" update="idNuevoCliente" />
@@ -67,13 +68,13 @@
                             <f:facet name="header">
                                 <h:outputText value="Actualizar" />
                             </f:facet>
-                            <p:commandButton value="Modificar" />
+                            <p:commandButton value="Modificar" actionListener="#{clienteForm.leerRow(cliente)}" oncomplete="PF('dlgActualizarCliente').show();" update="idActualizarCliente"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Eliminar" />
                             </f:facet>
-                            <p:commandButton value="Eliminar" />
+                            <p:commandButton value="Eliminar" actionListener="#{clienteForm.leerRow(cliente)}" oncomplete="PF('dlgConfimacion').show();" update="confirmacion" />
                         </p:column>
                     </p:dataTable>
                 </h:form>
@@ -96,9 +97,43 @@
                             <p:inputText value="#{clienteForm.clienteNuevo.activo}"/>
                             <p:outputLabel value="Fecha de Creacion"/>
                             <p:datePicker  id="popup" value="#{clienteForm.clienteNuevo.fechaCreacion}" showTime="true" />
-                            <p:commandButton value="Guardar" actionListener="#{clienteForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formCliente"/>
-                            <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevaDireccion').hide();"/>
+                            <p:commandButton value="Guardar" actionListener="#{clienteForm.guardar()}" oncomplete="PF('dlgNuevaCliente').hide();" update="formCliente, idNuevoCliente"/>
+                            <p:commandButton value="Cancelar" actionListener="#{clienteForm.limpiar()}" oncomplete="PF('dlgNuevaCliente').hide();" update="idNuevoCliente" />
                         </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="idActualizarCliente">
+                    <p:dialog widgetVar="dlgActualizarCliente" header="Actualizar Cliente" modal="true" >
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Direccion"/>
+                            <p:selectOneMenu value="#{clienteForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{clienteForm.clienteU.direccionId.direccion}, seleccionado" itemValue="#{clienteForm.clienteU.direccionId.direccionId}"/>
+                                <f:selectItems value="#{clienteForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}" itemValue="#{direccion.direccionId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Tienda"/>
+                            <p:selectOneMenu value="#{clienteForm.tienda.tiendaId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{clienteForm.clienteU.tiendaId.nombre}, seleccionado" itemValue="#{clienteForm.clienteU.tiendaId.tiendaId}"/>
+                                <f:selectItems value="#{clienteForm.tiendaList}" var="tienda" itemLabel="#{tienda.nombre}" itemValue="#{tienda.tiendaId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{clienteForm.clienteU.nombres}"/>
+                            <p:outputLabel value="Apellido"/>
+                            <p:inputText value="#{clienteForm.clienteU.apellidos}"/>
+                            <p:outputLabel value="Activo"/>
+                            <p:inputText value="#{clienteForm.clienteU.activo}"/>
+                            <p:outputLabel value="Fecha de Creacion"/>
+                            <p:datePicker  id="popup" value="#{clienteForm.clienteU.fechaCreacion}" showTime="true" />
+                            <p:commandButton value="Modificar" actionListener="#{clienteForm.update()}" oncomplete="PF('dlgActualizarCliente').hide();" update="formCliente, idActualizarCliente"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarCliente').hide();" update="idActualizarCliente" />
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="confirmacion">
+                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" modal="true" >
+                        <p:outputLabel value="Esta seguro que decea eliminar el registro con ID #:"/>
+                        <p:outputLabel value="#{clienteForm.clienteU.clienteId}"/><br/>
+                        <p:commandButton value="Aceptar" actionListener="#{clienteForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formCliente" />
+                        <p:commandButton value="Cancelar" oncomplete="PF('dlgConfimacion').hide();" />
                     </p:dialog>
                 </h:form>
 

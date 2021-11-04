@@ -11,6 +11,7 @@
         <ui:composition template="./../PlantillaGrupo4.xhtml">
 
             <ui:define name="content">
+                <f:event type="preRenderView"  listener="#{direccionForm.cargar()}" />
                 <h1>Mantenimiento Direccion</h1>
                 <h:form id="formDireccion">
                     <p:growl id="msg" showDetail="true"/>
