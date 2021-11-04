@@ -71,16 +71,13 @@
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Pais"/>
                             <p:selectOneMenu value="#{tiendaForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
-                                <f:selectItems value="#{tiendaForm.direccionList}" var="direccion" 
-                                               itemLabel="#{direccion.ciudadId.paisId.pais}, #{direccion.ciudadId.ciudad}, 
-                                               #{direccion.direccion}" itemValue="#{direccion.direccionId}"/> 
+                                <f:selectItem itemLabel="Seleccione Uno"/>
+                                <f:selectItems value="#{tiendaForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}, #{direccion.ciudadId.ciudad}, #{direccion.ciudadId.paisId.pais}" itemValue="#{direccion.direccionId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
                             <p:inputText value="#{tiendaForm.tiendaNueva.nombre}"/>
                             <p:outputLabel value="Telefono"/>
                             <p:inputMask value="#{tiendaForm.tiendaNueva.telefono}" mask="99999999" />
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker  id="popup" value="#{tiendaForm.tiendaNueva.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{tiendaForm.guardar()}" oncomplete="PF('dlgNuevaTienda').hide();" update="formTienda, idNuevoTienda"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevaTienda').hide();" />
                         </h:panelGrid>
@@ -94,15 +91,12 @@
                             <p:outputLabel value="Pais"/>
                             <p:selectOneMenu value="#{tiendaForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
                                 <f:selectItems value="#{tiendaForm.direccionList}" var="direccion" 
-                                               itemLabel="#{direccion.ciudadId.paisId.pais}, #{direccion.ciudadId.ciudad}, 
-                                               #{direccion.direccion}" itemValue="#{direccion.direccionId}"/> 
+                                               itemLabel="#{direccion.direccion}, #{direccion.ciudadId.ciudad}, #{direccion.ciudadId.paisId.pais}" itemValue="#{direccion.direccionId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
                             <p:inputText value="#{tiendaForm.tienda.nombre}"/>
                             <p:outputLabel value="Telefono"/>
                             <p:inputMask value="#{tiendaForm.tienda.telefono}" mask="99999999" />
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker  id="popup" value="#{tiendaForm.tienda.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{tiendaForm.update()}" oncomplete="PF('dlgActualizarTienda').hide();" update="formTienda, idActualizarTienda"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarTienda').hide();" />
                         </h:panelGrid>

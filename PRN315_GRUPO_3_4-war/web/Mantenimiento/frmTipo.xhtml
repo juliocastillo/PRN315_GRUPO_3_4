@@ -70,8 +70,6 @@
                                 <f:selectItem itemLabel="Activo" itemValue="1"/>
                                 <f:selectItem itemLabel="Inactivo" itemValue="0"/>
                             </p:selectOneButton>
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker  id="popup" value="#{tipoForm.tipoNuevo.fechaCreacion}" showTime="true" required="true" />
                             <p:commandButton value="Guardar" actionListener="#{tipoForm.guardar()}" oncomplete="PF('dlgNuevo').hide();" update="formTabla, idNuevo"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevo').hide();" update="idNuevo"/>
                         </h:panelGrid>
@@ -88,9 +86,8 @@
                                 <f:selectItem itemLabel="Activo" itemValue="1"/>
                                 <f:selectItem itemLabel="Inactivo" itemValue="0"/>
                             </p:selectOneButton>
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker id="popup" value="#{tipoForm.tipo.fechaCreacion}" showTime="true" required="true"/>
                             <p:commandButton value="Guardar cambios" oncomplete="PF('dlgTipo').hide();" update="formTabla"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgTipo').hide();"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>

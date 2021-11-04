@@ -83,10 +83,14 @@
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Direccion"/>
                             <p:selectOneMenu value="#{clienteForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
-                                <f:selectItems value="#{clienteForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}" itemValue="#{direccion.direccionId}"/> 
+                                <f:selectItem itemLabel="Seleccione Uno"/>
+                                <f:selectItems value="#{clienteForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}, 
+                                               #{direccion.ciudadId.ciudad}, 
+                                               #{direccion.ciudadId.paisId.pais}" itemValue="#{direccion.direccionId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Tienda"/>
                             <p:selectOneMenu value="#{clienteForm.tienda.tiendaId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="Seleccione Uno"/>
                                 <f:selectItems value="#{clienteForm.tiendaList}" var="tienda" itemLabel="#{tienda.nombre}" itemValue="#{tienda.tiendaId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
@@ -95,8 +99,6 @@
                             <p:inputText value="#{clienteForm.clienteNuevo.apellidos}"/>
                             <p:outputLabel value="Activo"/>
                             <p:inputText value="#{clienteForm.clienteNuevo.activo}"/>
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker  id="popup" value="#{clienteForm.clienteNuevo.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{clienteForm.guardar()}" oncomplete="PF('dlgNuevaCliente').hide();" update="formCliente, idNuevoCliente"/>
                             <p:commandButton value="Cancelar" actionListener="#{clienteForm.limpiar()}" oncomplete="PF('dlgNuevaCliente').hide();" update="idNuevoCliente" />
                         </h:panelGrid>
@@ -107,12 +109,15 @@
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Direccion"/>
                             <p:selectOneMenu value="#{clienteForm.direccion.direccionId}" filter="true" filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{clienteForm.clienteU.direccionId.direccion}, seleccionado" itemValue="#{clienteForm.clienteU.direccionId.direccionId}"/>
-                                <f:selectItems value="#{clienteForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}" itemValue="#{direccion.direccionId}"/> 
+                                <f:selectItem itemLabel="seleccionado :#{clienteForm.clienteU.direccionId.direccion}, 
+                                              #{clienteForm.clienteU.direccionId.ciudadId.ciudad}, 
+                                              #{clienteForm.clienteU.direccionId.ciudadId.paisId.pais}" itemValue="#{clienteForm.clienteU.direccionId.direccionId}"/>
+                                <f:selectItems value="#{clienteForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}, #{direccion.ciudadId.ciudad}, 
+                                               #{direccion.ciudadId.paisId.pais}" itemValue="#{direccion.direccionId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Tienda"/>
                             <p:selectOneMenu value="#{clienteForm.tienda.tiendaId}" filter="true" filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{clienteForm.clienteU.tiendaId.nombre}, seleccionado" itemValue="#{clienteForm.clienteU.tiendaId.tiendaId}"/>
+                                <f:selectItem itemLabel="seleccionado :#{clienteForm.clienteU.tiendaId.nombre}" itemValue="#{clienteForm.clienteU.tiendaId.tiendaId}"/>
                                 <f:selectItems value="#{clienteForm.tiendaList}" var="tienda" itemLabel="#{tienda.nombre}" itemValue="#{tienda.tiendaId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
@@ -121,8 +126,6 @@
                             <p:inputText value="#{clienteForm.clienteU.apellidos}"/>
                             <p:outputLabel value="Activo"/>
                             <p:inputText value="#{clienteForm.clienteU.activo}"/>
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker  id="popup" value="#{clienteForm.clienteU.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Modificar" actionListener="#{clienteForm.update()}" oncomplete="PF('dlgActualizarCliente').hide();" update="formCliente, idActualizarCliente"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarCliente').hide();" update="idActualizarCliente" />
                         </h:panelGrid>

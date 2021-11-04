@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -58,6 +59,7 @@ public class TiendaForm implements Serializable {
 
     public void guardar() {
         tiendaNueva.setTiendaId(BigDecimal.valueOf(155D));
+        tiendaNueva.setFechaCreacion(new Date());
         tiendaNueva.setDireccionId(direccion);
         try {
             tiendaFacade.create(tiendaNueva);

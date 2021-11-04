@@ -7,6 +7,7 @@ package proyecto.forms;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -58,6 +59,7 @@ public class TipoForm implements Serializable {
     //metodo sirve para guardar un registro en la tabla Tipo
     public void guardar(){
         tipoNuevo.setTipoId(BigDecimal.valueOf(155D));
+        tipoNuevo.setFechaCreacion(new Date());
         try{
         tipoFacade.create(tipoNuevo);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Aviso","¡Guardado Exitoso!"));

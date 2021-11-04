@@ -81,13 +81,10 @@
                 <h:form id="idNuevoDireccion">
                     <p:dialog widgetVar="dlgNuevaDireccion" header="Nueva Direccion" modal="true" >
                         <h:panelGrid columns="2">
-                            <p:outputLabel value="Pais"/>
-                            <p:selectOneMenu value="#{direccionForm.pais.paisId}" filter="true" filterMatchMode="contains">
-                                <f:selectItems value="#{direccionForm.paisList}" var="pais" itemLabel="#{pais.pais}" itemValue="#{pais.paisId}"/> 
-                            </p:selectOneMenu>
                             <p:outputLabel value="Ciudad"/>
                             <p:selectOneMenu value="#{direccionForm.ciudad.ciudadId}" filter="true" filterMatchMode="contains">
-                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}" itemValue="#{ciudad.ciudadId}"/> 
+                                <f:selectItem itemLabel="Seleccione Uno"/>
+                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}, #{ciudad.paisId.pais}" itemValue="#{ciudad.ciudadId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Direccion 1"/>
                             <p:inputText value="#{direccionForm.direccionNuevo.direccion}"/>
@@ -95,25 +92,19 @@
                             <p:inputText value="#{direccionForm.direccionNuevo.direccion2}"/>
                             <p:outputLabel value="Codigo Postal"/>
                             <p:inputText value="#{direccionForm.direccionNuevo.codigoPostal}"/>
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker  id="popup" value="#{direccionForm.direccionNuevo.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Guardar" actionListener="#{direccionForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formDireccion, idNuevoDireccion"/>
-                            <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevaDireccion').hide();" update="idNuevoDireccion"/>
+                            <p:commandButton value="Cancelar" actionListener="#{direccionForm.limpiar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="idNuevoDireccion"/>
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
                 <h:form id="idActualizarDireccion">
                     <p:dialog widgetVar="dlgActualizarDireccion" header="Actualizar Direccion" modal="true" >
                         <h:panelGrid columns="2">
-                            <p:outputLabel value="Pais"/>
-                            <p:selectOneMenu value="#{direccionForm.pais.paisId}" filter="true" filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{direccionForm.direccion.ciudadId.paisId.paisId},#{direccionForm.direccion.ciudadId.paisId.pais}" itemValue="#{direccionForm.direccion.ciudadId.paisId.paisId}"/>
-                                <f:selectItems value="#{direccionForm.paisList}" var="pais" itemLabel="#{pais.paisId}.#{pais.pais}" itemValue="#{pais.paisId}"/> 
-                            </p:selectOneMenu>
                             <p:outputLabel value="Ciudad"/>
                             <p:selectOneMenu value="#{direccionForm.ciudad.ciudadId}" filter="true" filterMatchMode="contains">
-                                <f:selectItem itemLabel="#{direccionForm.direccion.ciudadId.ciudadId},#{direccionForm.direccion.ciudadId.ciudad}" itemValue="#{direccionForm.direccion.ciudadId.ciudadId}"/>
-                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudadId}.#{ciudad.ciudad}" itemValue="#{ciudad.ciudadId}"/> 
+                                <f:selectItem itemLabel="Seleccionado :#{direccionForm.direccion.ciudadId.ciudad}, #{direccionForm.direccion.ciudadId.paisId.pais}"
+                                              itemValue="#{direccionForm.direccion.ciudadId.ciudadId}"/>
+                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}, #{ciudad.paisId.pais}" itemValue="#{ciudad.ciudadId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Direccion 1"/>
                             <p:inputText value="#{direccionForm.direccion.direccion}"/>
@@ -121,8 +112,6 @@
                             <p:inputText value="#{direccionForm.direccion.direccion2}"/>
                             <p:outputLabel value="Codigo Postal"/>
                             <p:inputText value="#{direccionForm.direccion.codigoPostal}"/>
-                            <p:outputLabel value="Fecha de Creacion"/>
-                            <p:datePicker  id="popup" value="#{direccionForm.direccion.fechaCreacion}" showTime="true" />
                             <p:commandButton value="Modificar" actionListener="#{direccionForm.update()}" oncomplete="PF('dlgActualizarDireccion').hide();" update="formDireccion, idActualizarDireccion"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarDireccion').hide();" update="idActualizarDireccion"/>
                         </h:panelGrid>
@@ -130,8 +119,10 @@
                 </h:form>
                 <h:form id="confirmacion">
                     <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" modal="true" >
-                        <p:outputLabel value="Esta seguro que decea eliminar el registro con ID #:"/>
+                        <p:outputLabel value="Esta seguro que desea eliminar el registro con ID #"/>
                         <p:outputLabel value="#{direccionForm.direccion.direccionId}"/><br/>
+                        <p:outputLabel value="¡Tambien se Eliminaran los clientes y las "/><br/>
+                        <p:outputLabel value="tiendas asociadas a este registro!"/><br/>
                         <p:commandButton value="Aceptar" actionListener="#{direccionForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formDireccion" />
                         <p:commandButton value="Cancelar" oncomplete="PF('dlgConfimacion').hide();" />
                     </p:dialog>

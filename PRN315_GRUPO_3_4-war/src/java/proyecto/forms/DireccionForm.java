@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -30,9 +31,6 @@ import proyecto.entidades.Pais;
 public class DireccionForm implements Serializable {
 
     @Inject
-    private PaisFacadeLocal paisFacade;
-
-    @Inject
     private CiudadFacadeLocal ciudadFacade;
 
     @Inject
@@ -41,16 +39,13 @@ public class DireccionForm implements Serializable {
     private List<Direccion> direccionList;
     private List<Ciudad> ciudadList;
     private Direccion direccionNuevo;
-    private List<Pais> paisList;
     private Direccion direccion;
     private Ciudad ciudad;
-    private Pais pais;
 
     @PostConstruct
     public void init() {
         direccionNuevo = new Direccion();
         ciudad = new Ciudad();
-        pais = new Pais();
         cargar();
     }
 
@@ -62,7 +57,6 @@ public class DireccionForm implements Serializable {
         try {
             this.direccionList = direccionFacade.findAll();
             this.ciudadList = ciudadFacade.findAll();
-            this.paisList = paisFacade.findAll();
         } catch (Exception e) {
 
         }
@@ -74,8 +68,8 @@ public class DireccionForm implements Serializable {
 
     public void guardar() {
         direccionNuevo.setDireccionId(BigDecimal.valueOf(155D));
+        direccionNuevo.setFechaCreacion(new Date());
         direccionNuevo.setCiudadId(ciudad);
-        direccionNuevo.getCiudadId().setPaisId(pais);
         try {
             direccionFacade.create(direccionNuevo);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "¡Guardado Exitoso!"));
@@ -88,7 +82,6 @@ public class DireccionForm implements Serializable {
 
     public void update() {
         direccion.setCiudadId(ciudad);
-        direccion.getCiudadId().setPaisId(pais);
         try {
             direccionFacade.edit(direccion);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "¡Registro modificado!"));
@@ -117,8 +110,6 @@ public class DireccionForm implements Serializable {
         direccion = new Direccion();
         ciudad = null;
         ciudad = new Ciudad();
-        pais = null;
-        pais = new Pais();
     }
 
     public List<Direccion> getDireccionList() {
@@ -151,22 +142,6 @@ public class DireccionForm implements Serializable {
 
     public void setDireccionNuevo(Direccion direccionNuevo) {
         this.direccionNuevo = direccionNuevo;
-    }
-
-    public List<Pais> getPaisList() {
-        return paisList;
-    }
-
-    public void setPaisList(List<Pais> paisList) {
-        this.paisList = paisList;
-    }
-
-    public Pais getPais() {
-        return pais;
-    }
-
-    public void setPais(Pais pais) {
-        this.pais = pais;
     }
 
     public Ciudad getCiudad() {

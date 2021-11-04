@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -100,6 +101,7 @@ public class ClienteForm implements Serializable {
 
     public void guardar() {
         clienteNuevo.setClienteId(BigDecimal.valueOf(155D));
+        clienteNuevo.setFechaCreacion(new Date());
         clienteNuevo.setDireccionId(direccion);
         clienteNuevo.setTiendaId(tienda);
         try {
