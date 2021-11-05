@@ -9,6 +9,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,9 +20,11 @@ import javax.inject.Inject;
 import proyecto.ejb.ClienteFacadeLocal;
 import proyecto.ejb.DireccionFacadeLocal;
 import proyecto.ejb.TiendaFacadeLocal;
+import proyecto.ejb.TipoFacadeLocal;
 import proyecto.entidades.Cliente;
 import proyecto.entidades.Direccion;
 import proyecto.entidades.Tienda;
+import proyecto.entidades.Tipo;
 
 /**
  *
@@ -30,6 +33,9 @@ import proyecto.entidades.Tienda;
 @Named(value = "clienteForm")
 @SessionScoped
 public class ClienteForm implements Serializable {
+
+    @EJB
+    private TipoFacadeLocal tipoFacade;
 
     @EJB
     private TiendaFacadeLocal tiendaFacade;
@@ -45,6 +51,10 @@ public class ClienteForm implements Serializable {
     private List<Direccion> direccionList;
 
     private List<Cliente> clienteList;
+    
+    private List<Tipo> tipoList;
+    
+    private List<Tipo> list;
 
     private Tienda tienda;
 
@@ -53,12 +63,16 @@ public class ClienteForm implements Serializable {
     private Cliente clienteNuevo;
 
     private Cliente clienteU;
+    
+    private Tipo tipo;
 
     @PostConstruct
     public void init() {
         tienda = new Tienda();
         direccion = new Direccion();
         clienteNuevo = new Cliente();
+        tipo = new Tipo();
+        list = new ArrayList<>();
         cargar();
     }
 
@@ -66,6 +80,7 @@ public class ClienteForm implements Serializable {
         clienteList = clienteFacade.findAll();
         tiendaList = tiendaFacade.findAll();
         direccionList = direccionFacade.findAll();
+        tipoList = tipoFacade.findAll();
     }
 
     public void limpiar() {
@@ -75,6 +90,12 @@ public class ClienteForm implements Serializable {
         direccion = new Direccion();
         clienteNuevo = null;
         clienteNuevo = new Cliente();
+        tipo = null;
+        tipo = new Tipo();
+        list = null;
+        list = new ArrayList<>();
+        clienteU = null;
+        clienteU = new Cliente();
     }
 
     public void update() {
@@ -98,8 +119,21 @@ public class ClienteForm implements Serializable {
         }
         cargar();
     }
+    public void updateTipoCliente(){
+        clienteU.getTipoList().add(tipo);
+        try {
+            clienteFacade.edit(clienteU);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "¡Registro modificado!"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Aviso", "¡Error al Actualizar!"));
+        }
+        cargar();
+        limpiar();
+    }
 
     public void guardar() {
+        list.add(tipo);
+        clienteNuevo.setTipoList(list);
         clienteNuevo.setClienteId(BigDecimal.valueOf(155D));
         clienteNuevo.setFechaCreacion(new Date());
         clienteNuevo.setDireccionId(direccion);
@@ -175,6 +209,30 @@ public class ClienteForm implements Serializable {
 
     public void setClienteU(Cliente clienteU) {
         this.clienteU = clienteU;
+    }
+
+    public List<Tipo> getTipoList() {
+        return tipoList;
+    }
+
+    public void setTipoList(List<Tipo> tipoList) {
+        this.tipoList = tipoList;
+    }
+
+    public List<Tipo> getList() {
+        return list;
+    }
+
+    public void setList(List<Tipo> list) {
+        this.list = list;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
 }

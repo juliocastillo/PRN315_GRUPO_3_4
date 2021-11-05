@@ -42,15 +42,17 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Nombres" />
+                                <h:outputText value="Nombres Completo" />
                             </f:facet>
-                            <h:outputText value="#{cliente.nombres}"/>
+                            <h:outputText value="#{cliente.nombres} #{cliente.apellidos}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="Apellidos" />
+                                <h:outputText value="Tipo de Cliente" />
                             </f:facet>
-                            <h:outputText value="#{cliente.apellidos}" />
+                            <ui:repeat value="#{cliente.tipoList}" var="tipo" >
+                                <h:outputText value="-#{tipo.nombre}"/><br/>
+                            </ui:repeat>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -69,6 +71,8 @@
                                 <h:outputText value="Actualizar" />
                             </f:facet>
                             <p:commandButton value="Modificar" actionListener="#{clienteForm.leerRow(cliente)}" oncomplete="PF('dlgActualizarCliente').show();" update="idActualizarCliente"/>
+                            <p:commandButton value="Agregar Tipo de Cliente" actionListener="#{clienteForm.leerRow(cliente)}" 
+                                             oncomplete="PF('dlgupdateTipo').show();" update="updateTipo"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -78,6 +82,21 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+
+
+                <h:form id="updateTipo">
+                    <p:dialog widgetVar="dlgupdateTipo" header="Agregar Tipo de Cliente" modal="true" >
+                        <p:outputLabel value="Tipo de Cliente"/>
+                        <p:selectOneMenu value="#{clienteForm.tipo.tipoId}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Seleccione Uno"/>
+                            <f:selectItems value="#{clienteForm.tipoList}" var="tipo" itemLabel="#{tipo.nombre}" itemValue="#{tipo.tipoId}"/> 
+                        </p:selectOneMenu>
+                        <p:commandButton value="Aceptar" actionListener="#{clienteForm.updateTipoCliente()}" oncomplete="PF('dlgupdateTipo').hide();" update="formCliente" />
+                        <p:commandButton value="Cancelar" actionListener="#{clienteForm.limpiar()}" oncomplete="PF('dlgupdateTipo').hide();" />
+                    </p:dialog>
+                </h:form>
+
+
                 <h:form id="idNuevoCliente">
                     <p:dialog widgetVar="dlgNuevaCliente" header="Nuevo Cliente" modal="true" >
                         <h:panelGrid columns="2">
@@ -97,6 +116,11 @@
                             <p:inputText value="#{clienteForm.clienteNuevo.nombres}"/>
                             <p:outputLabel value="Apellido"/>
                             <p:inputText value="#{clienteForm.clienteNuevo.apellidos}"/>
+                            <p:outputLabel value="Tipo de Cliente"/>
+                            <p:selectOneMenu value="#{clienteForm.tipo.tipoId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="Seleccione Uno"/>
+                                <f:selectItems value="#{clienteForm.tipoList}" var="tipo" itemLabel="#{tipo.nombre}" itemValue="#{tipo.tipoId}"/> 
+                            </p:selectOneMenu>
                             <p:outputLabel value="Activo"/>
                             <p:inputText value="#{clienteForm.clienteNuevo.activo}"/>
                             <p:commandButton value="Guardar" actionListener="#{clienteForm.guardar()}" oncomplete="PF('dlgNuevaCliente').hide();" update="formCliente, idNuevoCliente"/>
