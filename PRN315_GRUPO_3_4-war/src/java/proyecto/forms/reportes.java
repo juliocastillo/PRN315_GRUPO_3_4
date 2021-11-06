@@ -51,15 +51,15 @@ public class reportes implements Serializable {
     private List<Cliente> clientePorPais;
 
     private List<plantillaReporte> clienteTable;
-    
+
     private List<Tipo> tipoList;
-    
+
     private List<Tienda> tiendaList;
-    
+
     private List<Pais> paisList;
-    
+
     private BigDecimal Id;
-    
+
     private List<plantillaContador> contador;
 
     @PostConstruct
@@ -67,22 +67,23 @@ public class reportes implements Serializable {
         contador = new ArrayList<>();
         clienteTable = new ArrayList<>();
     }
-    public void cargar(){
-        try{
+
+    public void cargar() {
+        try {
             tipoList = tipoFacade.findAll();
             tiendaList = tiendaFacade.findAll();
             paisList = paisFacade.findAll();
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
-    public void limpiar(){
+
+    public void limpiar() {
         clienteTable = null;
         clienteTable = new ArrayList<>();
         contador = null;
         contador = new ArrayList<>();
     }
-    
 
     public void listaCompleta() {
         limpiar();
@@ -92,6 +93,7 @@ public class reportes implements Serializable {
         }
         llenartabla(clienteListCompleta);
     }
+
     public void listaPorTipo() {
         cargar();
         limpiar();
@@ -101,7 +103,7 @@ public class reportes implements Serializable {
         }
         llenartabla(clientePorTipo);
     }
-    
+
     public void listaPorTienda() {
         cargar();
         limpiar();
@@ -111,6 +113,7 @@ public class reportes implements Serializable {
         }
         llenartabla(clientePorTienda);
     }
+
     public void listaPorPais() {
         cargar();
         limpiar();
@@ -120,6 +123,7 @@ public class reportes implements Serializable {
         }
         llenartabla(clientePorPais);
     }
+
     public void llenartabla(List<Cliente> clienteList) {
         for (int i = 0; i < clienteList.size(); i++) {
             plantillaReporte pl = new plantillaReporte();
@@ -141,10 +145,29 @@ public class reportes implements Serializable {
             clienteTable.add(pl);
         }
     }
-    public void cout(){
+
+    public void clientesConTipos() {
+        limpiar();
+        try {
+            clienteListCompleta = clienteFacade.findAll();
+            for(Cliente c:clienteListCompleta){
+                plantillaContador p = new plantillaContador();
+                long cont = 0;
+                p.setTipo(c.getNombres()+" "+c.getApellidos());
+                cont+=c.getTipoList().size();
+                p.setCantidad(cont);
+                contador.add(p);
+            }
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    public void cout() {
         cargar();
         limpiar();
-        for(Tipo t:tipoList){
+        for (Tipo t : tipoList) {
             plantillaContador p = new plantillaContador();
             p.setTipo(t.getNombre());
             p.setCantidad(clienteFacade.countClientePorTipo(t.getTipoId()));

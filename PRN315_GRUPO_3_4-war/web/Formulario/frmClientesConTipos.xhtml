@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../PlantillaGrupo4.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView"  listener="#{reportes.clientesConTipos()}" />
+                <h:form id="formCliente">
+                    <p:growl id="msg" showDetail="true"/>
+                    <p:dataTable id="tblClientes" value="#{reportes.contador}" var="r" rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 rowsPerPageTemplate="5,10,{ShowAll|'All'}" >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Clientes" />
+                            </f:facet>
+                            <h:outputText value="#{r.tipo}" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cantidad Por Tipo" />
+                            </f:facet>
+                            <h:outputText value="#{r.cantidad}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="EXPORTAR A  PDF" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="pdf" target="tblClientes" fileName="ListaClientesPorPais"/>
+                    </p:commandButton>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

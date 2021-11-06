@@ -7,14 +7,15 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form id="login">
+            <p:growl id="msg" showDetail="true"/>
             <p:panelGrid columns="2">
                 <p:outputLabel value="Usuario" />
                 <p:inputText value="#{login.usuario}" />
                 <p:outputLabel value="Contraseña" />
-                <p:inputText value="#{login.pass}" />
+                <h:inputSecret value="#{login.pass}" />
                 <h:column/>
-                <p:commandButton value="Iniciar Sesion" action="#{login.iniciarSesion()}" />
+                <p:commandButton value="Iniciar Sesion" action="#{login.iniciarSesion()}" update="login" />
             </p:panelGrid>
         </h:form>
     </h:body>

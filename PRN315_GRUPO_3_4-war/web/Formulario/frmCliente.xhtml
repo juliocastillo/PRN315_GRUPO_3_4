@@ -113,9 +113,9 @@
                                 <f:selectItems value="#{clienteForm.tiendaList}" var="tienda" itemLabel="#{tienda.nombre}" itemValue="#{tienda.tiendaId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{clienteForm.clienteNuevo.nombres}"/>
+                            <p:inputText value="#{clienteForm.clienteNuevo.nombres}" maxlength="100"/>
                             <p:outputLabel value="Apellido"/>
-                            <p:inputText value="#{clienteForm.clienteNuevo.apellidos}"/>
+                            <p:inputText value="#{clienteForm.clienteNuevo.apellidos}" maxlength="100"/>
                             <p:outputLabel value="Tipo de Cliente"/>
                             <p:selectOneMenu value="#{clienteForm.tipo.tipoId}" filter="true" filterMatchMode="contains">
                                 <f:selectItem itemLabel="Seleccione Uno"/>
@@ -145,9 +145,9 @@
                                 <f:selectItems value="#{clienteForm.tiendaList}" var="tienda" itemLabel="#{tienda.nombre}" itemValue="#{tienda.tiendaId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{clienteForm.clienteU.nombres}"/>
+                            <p:inputText value="#{clienteForm.clienteU.nombres}" maxlength="100"/>
                             <p:outputLabel value="Apellido"/>
-                            <p:inputText value="#{clienteForm.clienteU.apellidos}"/>
+                            <p:inputText value="#{clienteForm.clienteU.apellidos}" maxlength="100"/>
                             <p:outputLabel value="Activo"/>
                             <p:inputText value="#{clienteForm.clienteU.activo}"/>
                             <p:commandButton value="Modificar" actionListener="#{clienteForm.update()}" oncomplete="PF('dlgActualizarCliente').hide();" update="formCliente, idActualizarCliente"/>

@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /**
@@ -22,22 +23,26 @@ public class Login implements Serializable {
 
     private String usuario = "";
     private String pass = "";
+
     @PostConstruct
-    public void init(){
-        
+    public void init() {
+
     }
 
     public Login() {
     }
-    public String iniciarSesion(){
+
+    public String iniciarSesion() {
         String redireccion = null;
-        try{
-            if(md5(usuario).equals("91f5167c34c400758115c2a6826ec2e3") && md5(pass).equals("c92f70ff68da8a499d765ebaa8251845")){
-                redireccion ="PlantillaGrupo4.jsf?faces-redirect=true";
+        try {
+            if (md5(usuario).equals("91f5167c34c400758115c2a6826ec2e3") && md5(pass).equals("c92f70ff68da8a499d765ebaa8251845")) {
+                redireccion = "PlantillaGrupo4.jsf?faces-redirect=true";
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pass", pass);
+            }else{
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aviso", "¡Error en las credenciales!"));
             }
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
         return redireccion;
     }

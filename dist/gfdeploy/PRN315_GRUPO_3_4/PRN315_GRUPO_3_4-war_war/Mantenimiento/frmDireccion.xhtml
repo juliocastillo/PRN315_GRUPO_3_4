@@ -87,11 +87,11 @@
                                 <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}, #{ciudad.paisId.pais}" itemValue="#{ciudad.ciudadId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Direccion 1"/>
-                            <p:inputText value="#{direccionForm.direccionNuevo.direccion}"/>
+                            <p:inputText value="#{direccionForm.direccionNuevo.direccion}" maxlength="50" />
                             <p:outputLabel value="Direccion 2"/>
-                            <p:inputText value="#{direccionForm.direccionNuevo.direccion2}"/>
+                            <p:inputText value="#{direccionForm.direccionNuevo.direccion2}" maxlength="50" />
                             <p:outputLabel value="Codigo Postal"/>
-                            <p:inputText value="#{direccionForm.direccionNuevo.codigoPostal}"/>
+                            <p:inputText value="#{direccionForm.direccionNuevo.codigoPostal}" maxlength="10" />
                             <p:commandButton value="Guardar" actionListener="#{direccionForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formDireccion, idNuevoDireccion"/>
                             <p:commandButton value="Cancelar" actionListener="#{direccionForm.limpiar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="idNuevoDireccion"/>
                         </h:panelGrid>
@@ -107,11 +107,11 @@
                                 <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}, #{ciudad.paisId.pais}" itemValue="#{ciudad.ciudadId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Direccion 1"/>
-                            <p:inputText value="#{direccionForm.direccion.direccion}"/>
+                            <p:inputText value="#{direccionForm.direccion.direccion}" maxlength="50"/>
                             <p:outputLabel value="Direccion 2"/>
-                            <p:inputText value="#{direccionForm.direccion.direccion2}"/>
+                            <p:inputText value="#{direccionForm.direccion.direccion2}" maxlength="50"/>
                             <p:outputLabel value="Codigo Postal"/>
-                            <p:inputText value="#{direccionForm.direccion.codigoPostal}"/>
+                            <p:inputText value="#{direccionForm.direccion.codigoPostal}" maxlength="10"/>
                             <p:commandButton value="Modificar" actionListener="#{direccionForm.update()}" oncomplete="PF('dlgActualizarDireccion').hide();" update="formDireccion, idActualizarDireccion"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarDireccion').hide();" update="idActualizarDireccion"/>
                         </h:panelGrid>

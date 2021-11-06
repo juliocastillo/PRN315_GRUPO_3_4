@@ -14,8 +14,8 @@
                 <f:event type="preRenderView"  listener="#{tiendaForm.cargar()}" />
                 <h:form id="formTienda">
                     <p:growl id="msg" showDetail="true"/>
-                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaTienda').show();" />
                     <h1>Mantenimiento Tienda</h1>
+                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaTienda').show();" />
                     <p:dataTable id="tblTienda" var="tienda" value="#{tiendaForm.tiendaList}" rows="5"
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -75,7 +75,7 @@
                                 <f:selectItems value="#{tiendaForm.direccionList}" var="direccion" itemLabel="#{direccion.direccion}, #{direccion.ciudadId.ciudad}, #{direccion.ciudadId.paisId.pais}" itemValue="#{direccion.direccionId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{tiendaForm.tiendaNueva.nombre}"/>
+                            <p:inputText value="#{tiendaForm.tiendaNueva.nombre}" maxlength="50"/>
                             <p:outputLabel value="Telefono"/>
                             <p:inputMask value="#{tiendaForm.tiendaNueva.telefono}" mask="99999999" />
                             <p:commandButton value="Guardar" actionListener="#{tiendaForm.guardar()}" oncomplete="PF('dlgNuevaTienda').hide();" update="formTienda, idNuevoTienda"/>
@@ -94,7 +94,7 @@
                                                itemLabel="#{direccion.direccion}, #{direccion.ciudadId.ciudad}, #{direccion.ciudadId.paisId.pais}" itemValue="#{direccion.direccionId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{tiendaForm.tienda.nombre}"/>
+                            <p:inputText value="#{tiendaForm.tienda.nombre}" maxlength="50"/>
                             <p:outputLabel value="Telefono"/>
                             <p:inputMask value="#{tiendaForm.tienda.telefono}" mask="99999999" />
                             <p:commandButton value="Guardar" actionListener="#{tiendaForm.update()}" oncomplete="PF('dlgActualizarTienda').hide();" update="formTienda, idActualizarTienda"/>

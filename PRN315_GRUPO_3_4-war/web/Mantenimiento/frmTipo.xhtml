@@ -64,7 +64,7 @@
                     <p:dialog id="dialogoNuevo" widgetVar="dlgNuevo" modal="true" >
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText value="#{tipoForm.tipoNuevo.nombre}" required="true" />
+                            <p:inputText value="#{tipoForm.tipoNuevo.nombre}" required="true" maxlength="50" />
                             <p:outputLabel value="Activo"/>
                             <p:selectOneButton value="#{tipoForm.tipoNuevo.activo}">
                                 <f:selectItem itemLabel="Activo" itemValue="1"/>
@@ -80,7 +80,7 @@
                     <p:dialog id="idTipo" header="Tabla Tipos" widgetVar="dlgTipo" modal="true" >
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Nombre"/>
-                            <p:inputText id="textNombre" value="#{tipoForm.tipo.nombre}" required="true" />
+                            <p:inputText id="textNombre" value="#{tipoForm.tipo.nombre}" required="true" maxlength="50" />
                             <p:outputLabel value="Activo"/>
                             <p:selectOneButton value="#{tipoForm.tipo.activo}">
                                 <f:selectItem itemLabel="Activo" itemValue="1"/>
