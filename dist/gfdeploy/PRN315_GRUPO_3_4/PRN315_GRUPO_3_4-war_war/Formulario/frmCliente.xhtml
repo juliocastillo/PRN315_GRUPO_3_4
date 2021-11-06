@@ -16,35 +16,34 @@
                 <h:form id="formCliente">
                     <p:growl id="msg" showDetail="true"/>
                     <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaCliente').show();" update="idNuevoCliente" />
-                    <p:dataTable id="tblClientes" value="#{clienteForm.clienteList}" var="cliente" rows="5"
+                    <p:dataTable id="tblClientes" filteredValue="" value="#{clienteForm.clienteList}" var="cliente" rows="5"
                                  paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
                                  rowsPerPageTemplate="5,10,{ShowAll|'All'}" >
-                        <p:column>
+                        <p:column filterBy="#{cliente.clienteId}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="ID Cliente" />
                             </f:facet>
                             <h:outputText value="#{cliente.clienteId}" />
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{cliente.direccionId.direccion}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Direccion" />
                             </f:facet>
-                            <h:outputText value="#{cliente.direccionId.ciudadId.paisId.pais} 
-                                          #{cliente.direccionId.ciudadId.ciudad} #{cliente.direccionId.direccion}"/>
+                            <h:outputText value="#{cliente.direccionId.direccion}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{cliente.tiendaId.nombre}" filterMatchMode="contains" >
                             <f:facet name="header">
                                 <h:outputText value="Tienda" />
                             </f:facet>
                             <h:outputText value="#{cliente.tiendaId.nombre}"/>
-                        </p:column>
-                        <p:column>
+                        </p:column >
+                        <p:column filterBy="#{cliente.nombres}" filterMatchMode="contains"  >
                             <f:facet name="header">
-                                <h:outputText value="Nombres Completo" />
+                                <h:outputText value="Nombres" />
                             </f:facet>
-                            <h:outputText value="#{cliente.nombres} #{cliente.apellidos}"/>
+                            <h:outputText value="#{cliente.nombres}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

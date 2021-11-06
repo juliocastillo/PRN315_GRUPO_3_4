@@ -86,7 +86,7 @@
                                 <f:selectItem itemLabel="Activo" itemValue="1"/>
                                 <f:selectItem itemLabel="Inactivo" itemValue="0"/>
                             </p:selectOneButton>
-                            <p:commandButton value="Guardar cambios" oncomplete="PF('dlgTipo').hide();" update="formTabla"/>
+                            <p:commandButton value="Guardar cambios" actionListener="#{tipoForm.actualizar()}" oncomplete="PF('dlgTipo').hide();" update="formTabla"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgTipo').hide();"/>
                         </h:panelGrid>
                     </p:dialog>
