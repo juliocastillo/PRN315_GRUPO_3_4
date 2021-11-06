@@ -5,6 +5,7 @@
  */
 package proyecto.ejb;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 import proyecto.entidades.Cliente;
@@ -27,6 +28,15 @@ public interface ClienteFacadeLocal {
     List<Cliente> findAll();
 
     List<Cliente> findRange(int[] range);
+    
+    List<Cliente> clientePorTipo(BigDecimal tipoId);
+    
+    List<Cliente> clientePorTienda(BigDecimal TiendaId);
+    
+    List<Cliente> clientePorPais(BigDecimal paisId);
+    
+    long countClientePorTipo(BigDecimal tipoId);
+    
 
     int count();
     

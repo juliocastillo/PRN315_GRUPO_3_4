@@ -43,7 +43,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cliente.findByNombres", query = "SELECT c FROM Cliente c WHERE c.nombres = :nombres")
     , @NamedQuery(name = "Cliente.findByApellidos", query = "SELECT c FROM Cliente c WHERE c.apellidos = :apellidos")
     , @NamedQuery(name = "Cliente.findByActivo", query = "SELECT c FROM Cliente c WHERE c.activo = :activo")
-    , @NamedQuery(name = "Cliente.findByFechaCreacion", query = "SELECT c FROM Cliente c WHERE c.fechaCreacion = :fechaCreacion")})
+    , @NamedQuery(name = "Cliente.findByFechaCreacion", query = "SELECT c FROM Cliente c WHERE c.fechaCreacion = :fechaCreacion")
+    , @NamedQuery(name = "Cliente.findByTienda", query = "SELECT c FROM Cliente c WHERE c.tiendaId.tiendaId = :tiendaId")
+    , @NamedQuery(name = "Cliente.findByPais", query = "SELECT c FROM Cliente c WHERE c.direccionId.ciudadId.paisId.paisId = :paisId")
+    , @NamedQuery(name = "Cliente.CountByTipo", query = "SELECT COUNT (c) FROM Cliente c, c.tipoList t WHERE t.tipoId = :tipoId")
+    , @NamedQuery(name = "Cliente.findByTipo", query = "SELECT c FROM Cliente c,c.tipoList t WHERE t.tipoId = :tipoId")})
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
