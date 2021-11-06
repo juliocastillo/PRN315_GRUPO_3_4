@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../PlantillaGrupo4.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView"  listener="#{direccionForm.cargar()}" />
+                <h1>Mantenimiento Direccion</h1>
+                <h:form id="formDireccion">
+                    <p:growl id="msg" showDetail="true"/>
+                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevaDireccion').show();" />
+                    <p:dataTable id="tblDireccion" var="direccion" value="#{direccionForm.direccionList}" rows="5"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID Direccion" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.direccionId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Pais" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.ciudadId.paisId.pais}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Ciudad" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.ciudadId.ciudad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Direccion 1" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.direccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Direccion 2" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.direccion2}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Codigo Postal" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.codigoPostal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de Creacion" />
+                            </f:facet>
+                            <h:outputText value="#{direccion.fechaCreacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actualizar" />
+                            </f:facet>
+                            <p:commandButton value="Modificar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgActualizarDireccion').show();" update="idActualizarDireccion"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Eliminar" />
+                            </f:facet>
+                            <p:commandButton value="Eliminar" actionListener="#{direccionForm.leerFila(direccion)}" oncomplete="PF('dlgConfimacion').show();" update="confirmacion"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="idNuevoDireccion">
+                    <p:dialog widgetVar="dlgNuevaDireccion" header="Nueva Direccion" modal="true" >
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Ciudad"/>
+                            <p:selectOneMenu value="#{direccionForm.ciudad.ciudadId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="Seleccione Uno"/>
+                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}, #{ciudad.paisId.pais}" itemValue="#{ciudad.ciudadId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Direccion 1"/>
+                            <p:inputText value="#{direccionForm.direccionNuevo.direccion}" maxlength="50" />
+                            <p:outputLabel value="Direccion 2"/>
+                            <p:inputText value="#{direccionForm.direccionNuevo.direccion2}" maxlength="50" />
+                            <p:outputLabel value="Codigo Postal"/>
+                            <p:inputText value="#{direccionForm.direccionNuevo.codigoPostal}" maxlength="10" />
+                            <p:commandButton value="Guardar" actionListener="#{direccionForm.guardar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="formDireccion, idNuevoDireccion"/>
+                            <p:commandButton value="Cancelar" actionListener="#{direccionForm.limpiar()}" oncomplete="PF('dlgNuevaDireccion').hide();" update="idNuevoDireccion"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="idActualizarDireccion">
+                    <p:dialog widgetVar="dlgActualizarDireccion" header="Actualizar Direccion" modal="true" >
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Ciudad"/>
+                            <p:selectOneMenu value="#{direccionForm.ciudad.ciudadId}" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="Seleccionado :#{direccionForm.direccion.ciudadId.ciudad}, #{direccionForm.direccion.ciudadId.paisId.pais}"
+                                              itemValue="#{direccionForm.direccion.ciudadId.ciudadId}"/>
+                                <f:selectItems value="#{direccionForm.ciudadList}" var="ciudad" itemLabel="#{ciudad.ciudad}, #{ciudad.paisId.pais}" itemValue="#{ciudad.ciudadId}"/> 
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Direccion 1"/>
+                            <p:inputText value="#{direccionForm.direccion.direccion}" maxlength="50"/>
+                            <p:outputLabel value="Direccion 2"/>
+                            <p:inputText value="#{direccionForm.direccion.direccion2}" maxlength="50"/>
+                            <p:outputLabel value="Codigo Postal"/>
+                            <p:inputText value="#{direccionForm.direccion.codigoPostal}" maxlength="10"/>
+                            <p:commandButton value="Modificar" actionListener="#{direccionForm.update()}" oncomplete="PF('dlgActualizarDireccion').hide();" update="formDireccion, idActualizarDireccion"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarDireccion').hide();" update="idActualizarDireccion"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="confirmacion">
+                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" modal="true" >
+                        <p:outputLabel value="Esta seguro que desea eliminar el registro con ID #"/>
+                        <p:outputLabel value="#{direccionForm.direccion.direccionId}"/><br/>
+                        <p:outputLabel value="¡Tambien se Eliminaran los clientes y las "/><br/>
+                        <p:outputLabel value="tiendas asociadas a este registro!"/><br/>
+                        <p:commandButton value="Aceptar" actionListener="#{direccionForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formDireccion" />
+                        <p:commandButton value="Cancelar" oncomplete="PF('dlgConfimacion').hide();" />
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

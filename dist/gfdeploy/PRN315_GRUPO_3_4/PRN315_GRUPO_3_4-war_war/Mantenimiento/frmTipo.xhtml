@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../PlantillaGrupo4.xhtml">
+            <f:event type="preRenderView"  listener="#{tipoForm.cargar()}" />
+            <ui:define name="content">
+                <h:form id="formTabla">
+                    <p:growl id="msg" showDetail="true"/>
+                    <br/>
+                    <h1>Tipos de clientes</h1><br/>
+                    <p:commandButton value="Nuevo" oncomplete="PF('dlgNuevo').show();" update="idNuevo" />
+                    <br/><p:dataTable id="tablaTipo" var="tipo" value="#{tipoForm.tipoList}" rows="5"
+                                      paginator="true"
+                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                      rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="ID tipo" />
+                            </f:facet>
+                            <h:outputText value="#{tipo.tipoId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre" />
+                            </f:facet>
+                            <h:outputText value="#{tipo.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Activo" />
+                            </f:facet>
+                            <h:outputText value="#{tipo.activo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Fecha de creacion" />
+                            </f:facet>
+                            <h:outputText value="#{tipo.fechaCreacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Actualizar" />
+                            </f:facet>
+                            <p:commandButton value="Modificar" actionListener="#{tipoForm.leerRow(tipo)}" oncomplete="PF('dlgTipo').show();" update="actualizar" />
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Eliminar" />
+                            </f:facet>
+                            <p:commandButton value="Eliminar" actionListener="#{tipoForm.leerRow(tipo)}" oncomplete="PF('dlgConfimacion').show();" update="confirmacion" />
+
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <h:form id="idNuevo">
+                    <p:dialog id="dialogoNuevo" widgetVar="dlgNuevo" modal="true" >
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{tipoForm.tipoNuevo.nombre}" required="true" maxlength="50" />
+                            <p:outputLabel value="Activo"/>
+                            <p:selectOneButton value="#{tipoForm.tipoNuevo.activo}">
+                                <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                            </p:selectOneButton>
+                            <p:commandButton value="Guardar" actionListener="#{tipoForm.guardar()}" oncomplete="PF('dlgNuevo').hide();" update="formTabla, idNuevo"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgNuevo').hide();" update="idNuevo"/>
+                        </h:panelGrid>
+                    </p:dialog>
+
+                </h:form>
+                <h:form id="actualizar">
+                    <p:dialog id="idTipo" header="Tabla Tipos" widgetVar="dlgTipo" modal="true" >
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText id="textNombre" value="#{tipoForm.tipo.nombre}" required="true" maxlength="50" />
+                            <p:outputLabel value="Activo"/>
+                            <p:selectOneButton value="#{tipoForm.tipo.activo}">
+                                <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                            </p:selectOneButton>
+                            <p:commandButton value="Guardar cambios" oncomplete="PF('dlgTipo').hide();" update="formTabla"/>
+                            <p:commandButton value="Cancelar" oncomplete="PF('dlgTipo').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="confirmacion">
+                    <p:dialog id="dialogoConfir" widgetVar="dlgConfimacion" header="Confirmar Accion" modal="true" >
+                        <p:outputLabel value="Esta seguro que decea eliminar el registro con ID #:"/>
+                        <p:outputLabel value="#{tipoForm.tipo.tipoId}"/><br/>
+                        <p:commandButton value="Aceptar" actionListener="#{tipoForm.eliminar()}" oncomplete="PF('dlgConfimacion').hide();" update="formTabla" />
+                        <p:commandButton value="Cancelar" oncomplete="PF('dlgConfimacion').hide();" />
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
