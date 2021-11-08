@@ -70,8 +70,11 @@
                             <h:outputText value="#{r.fecha}" />
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton value="EXPORTAR A  PDF" styleClass="p-mr-2 p-mb-2">
-                        <p:dataExporter type="pdf" target="tblClientes" fileName="ListaClientesPorPais"/>
+                    <p:commandButton ajax="false" value="EXPORTAR A  PDF" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="pdf" target="tblClientes" fileName="ListaClientesPorTipo"/>
+                    </p:commandButton>
+                    <p:commandButton ajax="false" value="EXPORTAR A  EXCEL" styleClass="p-mr-2 p-mb-2">
+                        <p:dataExporter type="xls" target="tblClientes" fileName="ListaClientesPorTipo"/>
                     </p:commandButton>
                 </h:form>
             </ui:define>
