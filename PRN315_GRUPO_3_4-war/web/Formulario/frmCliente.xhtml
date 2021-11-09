@@ -121,7 +121,10 @@
                                 <f:selectItems value="#{clienteForm.tipoList}" var="tipo" itemLabel="#{tipo.nombre}" itemValue="#{tipo.tipoId}"/> 
                             </p:selectOneMenu>
                             <p:outputLabel value="Activo"/>
-                            <p:inputText value="#{clienteForm.clienteNuevo.activo}"/>
+                            <p:selectOneButton value="#{clienteForm.clienteNuevo.activo}">
+                                <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                            </p:selectOneButton>
                             <p:commandButton value="Guardar" actionListener="#{clienteForm.guardar()}" oncomplete="PF('dlgNuevaCliente').hide();" update="formCliente, idNuevoCliente"/>
                             <p:commandButton value="Cancelar" actionListener="#{clienteForm.limpiar()}" oncomplete="PF('dlgNuevaCliente').hide();" update="idNuevoCliente" />
                         </h:panelGrid>
@@ -148,7 +151,10 @@
                             <p:outputLabel value="Apellido"/>
                             <p:inputText value="#{clienteForm.clienteU.apellidos}" maxlength="100"/>
                             <p:outputLabel value="Activo"/>
-                            <p:inputText value="#{clienteForm.clienteU.activo}"/>
+                            <p:selectOneButton value="#{clienteForm.clienteU.activo}">
+                                <f:selectItem itemLabel="Activo" itemValue="1"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="0"/>
+                            </p:selectOneButton>
                             <p:commandButton value="Modificar" actionListener="#{clienteForm.update()}" oncomplete="PF('dlgActualizarCliente').hide();" update="formCliente, idActualizarCliente"/>
                             <p:commandButton value="Cancelar" oncomplete="PF('dlgActualizarCliente').hide();" update="idActualizarCliente" />
                         </h:panelGrid>
